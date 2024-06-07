@@ -1,0 +1,38 @@
+<div class="background-container">
+    <img src="../../assets/img/wave.png" class="wave-image" alt="Wave Background">
+  </div>
+  <div class="login-container">
+    <img src="../../assets/img/avatar.svg" class="avatar" alt="Avatar">
+    <h2>Welcome</h2>
+    <form (ngSubmit)="login()">
+      <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+        {{ errorMessage }}
+      </div>
+      <div class="form-group">
+        <label for="email" class="form-label">Email:</label>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+          </div>
+          <input type="email" id="email" name="email" class="form-control" [(ngModel)]="email" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password" class="form-label">Password:</label>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+          </div>
+          <input type="password" id="password" name="password" class="form-control" [(ngModel)]="password" required>
+        </div>
+      </div>
+      <div class="form-group link-container">
+        <a href="/register">Not a user yet? Sign up now</a>
+        
+        <span>| </span>
+        <a href="/forgot-password">Forgot password?</a>
+      </div>
+      <button type="submit" class="btn btn-block">Login</button>
+    </form>
+  </div>
+  

@@ -1,0 +1,105 @@
+.navbar {
+  background-color: #ffffff;
+  padding: 10px 20px;
+  transition: background-color 0.3s, color 0.3s;
+  z-index: 1000; /* Ensure the navbar is on top */
+}
+
+.navbar-brand .logo {
+  width: 60px;
+  height: auto;
+}
+
+.navbar-toggler {
+  border: none;
+  background: none;
+}
+
+.navbar-toggler-icon {
+  background-image: url('data:image/svg+xml;charset=UTF8,%3Csvg xmlns%3D"http%3A//www.w3.org/2000/svg" viewBox%3D"0 0 30 30"%3E%3Cpath stroke%3D"rgba%280, 0, 0, 1%29" stroke-width%3D"2" stroke-linecap%3D"round" stroke-miterlimit%3D"10" d%3D"M4 7h22M4 15h22M4 23h22"/%3E%3C/svg%3E');
+}
+
+.navbar-collapse {
+  flex-grow: 1;
+}
+
+.center-nav {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.navbar-nav.ms-auto {
+  margin-left: auto;
+}
+
+.nav-item .nav-link {
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s;
+  color: #617FAB;
+  cursor: pointer;
+}
+
+.nav-item .nav-link:hover {
+  color: #495C6F;
+}
+
+.nav-item .btn-primary {
+  font-size: 0.875rem;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .navbar-collapse {
+    position: absolute;
+    top: 100%; /* Aligns the menu just below the navbar */
+    left: 0;
+    right: 0;
+    background-color: #ffffff; /* Solid background color */
+    border-top: 1px solid #e5e5e5; /* Optional border to distinguish the menu */
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for better visibility */
+    z-index: 999; /* Ensure the overlay is on top */
+  }
+
+  .navbar-collapse.show {
+    display: block;
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+    align-items: center;
+    width: auto;
+  }
+
+  .navbar-brand {
+    position: static;
+    margin-left: 0;
+  }
+
+  .navbar-toggler {
+    margin-right: 0;
+  }
+
+  .nav-item {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.unread-dot {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+}

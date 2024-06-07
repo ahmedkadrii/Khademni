@@ -1,0 +1,131 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+  
+  .dashboard-container {
+    background-color: #DDDCE1;
+    min-height: 100vh; /* Ensures the background color covers the entire viewport height */
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto; /* Center the container */
+  }
+  
+  .user-dashboard, .enterprise-dashboard, .admin-dashboard {
+    margin-top: 50px;
+  }
+  
+  .card {
+    border: none;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+  }
+  
+  .card-text {
+    margin: 5px 0;
+    color: #666;
+  }
+  
+  .badge {
+    font-size: 0.875rem;
+    padding: 0.5em 1em;
+    border-radius: 12px;
+  }
+  
+  .badge-secondary {
+    background-color: #6c757d;
+    color: #fff;
+  }
+  
+  /* Status classes */
+  .accepted {
+    border-left: 5px solid #28a745;
+  }
+  
+  .pending {
+    border-left: 5px solid #ffc107;
+  }
+  
+  .rejected {
+    border-left: 5px solid #dc3545;
+  }
+  
+  /* Custom animation for cards */
+  .animated-card {
+    animation: fadeInUp 0.5s ease-in-out both;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 40px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  .btn-secondary {
+    background-color: #6c757d;
+    border: none;
+    color: #fff;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #5a6268;
+  }
+  
+  @media (max-width: 768px) {
+    .card {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .card img {
+      margin-bottom: 10px;
+    }
+  
+    .card-title, .card-text {
+      text-align: center;
+    }
+  
+    .card-footer {
+      justify-content: center;
+    }
+  }
+  
+  .animated-card.border-danger {
+    border-width: 2px;
+  }
+  

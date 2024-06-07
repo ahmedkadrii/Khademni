@@ -1,0 +1,8 @@
+<!-- dialog.component.html -->
+<h1 mat-dialog-title>{{ data.message }}</h1>
+<div mat-dialog-content>
+  <mat-icon *ngIf="data.message === 'Accepted'" class="checkmark-icon">check_circle</mat-icon>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="'Close'">Close</button>
+</div>

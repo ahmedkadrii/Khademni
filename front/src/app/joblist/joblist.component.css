@@ -1,0 +1,306 @@
+/* Header Styles */
+.header {
+    padding: 20px 0; /* Remove right padding */
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 240px;
+  }
+  
+  body {
+    background-color: #F8F8F9;
+  }
+  
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: #ffffff;
+    flex-wrap: wrap; /* Allow wrapping of content */
+  }
+  
+  .header-text {
+    text-align: left;
+    padding-left: 270px; /* Add padding to the left of the text */
+    max-width: 60%;
+    flex: 1 1 auto;
+    word-wrap: break-word;
+    /* Ensure long words break */
+  }
+  
+  .header h1 {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #2A2F52;
+  }
+  
+  .header p {
+    font-size: 1.2em;
+    color: #787FB5;
+  }
+  
+  .header-image {
+    margin-left: auto; /* Push the image to the far right */
+  }
+  
+  .header-image img {
+    max-width: 328px; /* Adjust the size as needed */
+    height: auto;
+    display: block; /* Ensure no inline space */
+    margin-right: 0; /* Ensure no margin on the right */
+  }
+  
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 150px;
+  }
+  
+  .form-select {
+    background-color: #ffffff;
+  }
+  
+  .custom-select {
+    width: 300px;
+    height: 40px;
+    border-radius: 5px;
+    padding-left: 20px;
+  }
+  
+  .filter-section {
+    background-color: #ffffff;
+    color: #343a40;
+    padding: 0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 40%
+  }
+  
+  .filter-header {
+    background-color: #039EF5;
+    padding: 10px 20px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding-bottom: 20px;
+  }
+  
+  .filter-header h3 {
+    margin: 0;
+    font-size: 18px;
+    padding-top: 15px;
+    color: #2A2F52;
+    font-weight: bold;
+  }
+  
+  .filter-header button {
+    font-size: 15px;
+    color: #35395B;
+    border: none;
+    background: none;
+    padding: 0;
+    padding-top: 15px;
+    text-decoration: none;
+  }
+  
+  .filter-header button:hover {
+    color: white;
+  }
+  
+  .filter-group {
+    padding: 20px;
+    margin-bottom: -10px;
+    color: #787FB5;
+  }
+  
+  .filter-group h4 {
+    font-size: 16px;
+    color: #2A2F52;
+    margin-bottom: 21px;
+    font-weight: bold;
+  }
+  
+  .filter-group div,
+  .filter-group select,
+  .filter-group input[type="range"] {
+    margin-bottom: 10px;
+  }
+  
+  .filter-group input[type="checkbox"],
+  .filter-group input[type="radio"] {
+    margin-right: 10px;
+    background-color: red;
+    accent-color: #00aeff;  /* Changes the highlight color when checked */
+  }
+  
+  .filter-group label {
+    font-size: 14px;
+    color: #787FB5;
+  }
+  
+  .filter-group input[type="range"] {
+    width: 100%;
+  }
+  
+  .mb-0 {
+    color: #2A2F52;
+    font-weight: bold;
+  }
+  
+  /* Job List Section Styles */
+  .joblist-section .search-bar input {
+    width: 40%;
+    margin-left: 5px; /* Adjust this value to push the input fields slightly to the right */
+  }
+  
+  .btn {
+    background-color: #71DB97;
+    color: white;
+  }
+  
+  .btn:hover {
+    background-color: #60BA80;
+    color: white;
+  }
+  
+  .apply-btn {
+    background-color: #71DB97;
+    color: white;
+    font-size: 0.9em;
+    transition: transform 0.3s ease;
+  }
+  
+  .apply-btn:hover {
+    background-color: #60BA80;
+    color: white;
+    font-size: 0.9em;
+    transform: translateY(-3px);
+  }
+  
+  .joblist-section .search-bar button {
+    width: auto;
+    font-size: .9em;
+    padding-left: 1px; /* Adjust padding */
+    margin-left: 10px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .search-bar button .bi {
+    font-size: 1.2em;
+  }
+  
+  .job-card {
+    background-color: #ffffff;
+    color: #D4D9F4;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  
+  
+  
+  .job-card-header img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+  
+  .job-card-body {
+    max-height: 100px; /* Adjust the height as needed */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Number of lines to show */
+    -webkit-box-orient: vertical;
+  }
+  
+  .job-card-body p {
+    margin: 0;
+    line-height: 1.5; /* Adjust the line-height as needed */
+    color: #617FAB;
+  }
+  
+  .job-meta span {
+    font-size: 14px;
+    color: #617FAB;
+  }
+  
+  .badge {
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  
+  /* Media Queries for Responsiveness */
+  @media (max-width: 1200px) {
+    .header-text {
+      padding-left: 20px; /* Reduce padding for smaller screens */
+      max-width: 100%; /* Allow full width */
+    }
+  
+    .header-image img {
+      max-width: 200px; /* Adjust image size */
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .header {
+      height: auto; /* Allow header to adjust height */
+      padding: 20px; /* Add padding for smaller screens */
+    }
+  
+    .header-content {
+      flex-direction: column; /* Stack content vertically */
+      align-items: flex-start; /* Align items to the start */
+    }
+  
+    .header-text {
+      padding-left: 0; /* Reduce padding for smaller screens */
+      max-width: 100%; /* Allow full width */
+      padding-top: 20px;
+      margin-bottom: 20px;
+    }
+  
+    .header-image {
+      display: none; /* Hide the image on smaller screens */
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .header-text {
+      padding-left: 0; /* Remove left padding */
+      max-width: 100%; /* Allow full width */
+    }
+  
+    .header-image {
+      display: none; /* Hide the image on very small screens */
+    }
+  
+    .filter-header,
+    .filter-group {
+      padding: 10px; /* Reduce padding for very small screens */
+    }
+  
+    .filter-group h4,
+    .filter-group label {
+      font-size: 14px; /* Adjust font size */
+    }
+  
+    .job-card {
+      padding: 10px; /* Reduce padding */
+    }
+  }
+  .pagination-controls {
+    margin-top: 20px;
+  }
+  
+  .pagination-controls button {
+    padding: 10px 20px;
+  }
+  

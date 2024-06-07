@@ -1,0 +1,203 @@
+:host {
+    display: block;
+    height: 100vh;
+    background: url('../../assets/img/bg.svg') no-repeat left center fixed;
+    background-size: contain;
+    position: relative;
+    background-size: 45%;
+  }
+  
+  .background-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Ensures it stays in the background */
+    background-color: #2A2F52;
+  }
+  
+  .wave-image {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40%;
+    height: 100vh;
+  }
+  
+  .btn {
+    background-color: #38d39f;
+    color: white;
+    font-family: "Fjalla One", sans-serif;
+    letter-spacing: 4px;
+    font-size: 15px;
+  }
+  
+  /* Change the input focus border color to red */
+  .form-control:focus {
+    border-color: #38d39f;
+    box-shadow: 0 0 0 0.2rem rgb(5, 241, 163);
+  }
+  
+  .login-container {
+    position: absolute;
+    left: 60%;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 3em;
+    text-align: center;
+    z-index: 1;
+  }
+  
+  .login-container .avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 2em;
+  }
+  
+  .login-container h2 {
+    font-family: "Fjalla One", sans-serif;
+    margin-bottom: 1em;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #D4D9F4;
+    font-size: 2.9em;
+    letter-spacing: 3px;
+  }
+  
+  .form-group {
+    margin-bottom: 1em;
+    text-align: left;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5em;
+    color: #999;
+    font-weight: bold;
+  }
+  
+  .form-group .input-group {
+    display: flex;
+    align-items: center;
+    width: 30em;
+  }
+  
+  .input-group-prepend {
+    margin-right: 0.5em;
+  }
+  
+  .form-control {
+    border-radius: 4px;
+  }
+  
+  .btn {
+    border-radius: 4px;
+    padding: 0.75em;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .btn-block {
+    width: 100%;
+  }
+  
+  .link-container {
+    text-align: right;
+    margin-bottom: 1em;
+    font-weight: bold;
+  }
+  
+  .link-container a {
+    color: #999;
+    text-decoration: none;
+    margin-right: 0.5em;
+  }
+  
+  .link-container a:hover {
+    color: #38d39f;
+    font-weight: bold;
+  }
+  
+  /* Custom icon colors */
+  .input-group-text .fas {
+    color: #999; /* Change this to your desired color */
+  }
+  
+  /* Media queries for responsiveness */
+  @media (max-width: 1200px) {
+    :host {
+      background-size: 50%;
+    }
+  
+    .wave-image {
+      width: 50%;
+    }
+  
+    .login-container {
+      left: 60%;
+      padding: 1.5em;
+    }
+  }
+  
+  @media (max-width: 992px) {
+    :host {
+      background: none;
+    }
+  
+    .wave-image {
+      display: none;
+    }
+  
+    .login-container {
+      left: 20%;
+      padding: 1.5em;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .background-container,
+    .wave-image {
+      display: none;
+  
+    }
+  
+    :host {
+      background-color: #2A2F52;
+    }
+  
+    .login-container {
+      left: 20%;
+      padding: 1em;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    :host {
+      background: #2A2F52;
+    }
+  
+    .background-container,
+    .wave-image {
+      display: none;
+    }
+  
+    .login-container {
+      left: 50%;
+      padding: 1em;
+      transform: translate(-50%, -50%);
+    }
+  }
+  
+  .form-control.ng-invalid.ng-touched,
+  .form-control.ng-invalid.ng-dirty {
+    border-color: red;
+    box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, 0.25);
+  }
+  
+  .invalid-feedback {
+    display: block;
+    color: red;
+  }
+  

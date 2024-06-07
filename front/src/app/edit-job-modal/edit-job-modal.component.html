@@ -1,0 +1,59 @@
+<div class="modal-content">
+    <div class="modal-header bg-gradient-primary text-white">
+      <h5 class="modal-title">Edit Job</h5>
+      <button type="button" class="btn-close btn-close-white" aria-label="Close" (click)="closeDialog()"></button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="saveChanges()">
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input type="text" id="title" name="title" class="form-control" [(ngModel)]="editedJob.title" required>
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea id="description" name="description" class="form-control" [(ngModel)]="editedJob.description" required></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="minSalary" class="form-label">Minimum Salary</label>
+          <input type="number" id="minSalary" name="minSalary" class="form-control" [(ngModel)]="editedJob.salary.minSalary" required>
+        </div>
+        <div class="mb-3">
+          <label for="maxSalary" class="form-label">Maximum Salary</label>
+          <input type="number" id="maxSalary" name="maxSalary" class="form-control" [(ngModel)]="editedJob.salary.maxSalary" required>
+        </div>
+        <div class="mb-3">
+          <label for="exp" class="form-label">Experience Requirements</label>
+          <select id="exp" name="exp" class="form-select" [(ngModel)]="editedJob.exp" required>
+            <option *ngFor="let exp of expOptions" [value]="exp">{{ exp }}</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="type" class="form-label">Job Type</label>
+          <select id="type" name="type" class="form-select" [(ngModel)]="editedJob.types" required>
+            <option *ngFor="let type of typeOptions" [value]="type">{{ type }}</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="deadline" class="form-label">Deadline</label>
+          <input type="date" id="deadline" name="deadline" class="form-control" [(ngModel)]="editedJob.deadline" required>
+        </div>
+        <div class="mb-3">
+          <label for="city" class="form-label">City</label>
+          <select id="city" name="city" class="form-select" [(ngModel)]="editedJob.cities" required>
+            <option *ngFor="let city of cityOptions" [value]="city">{{ city }}</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="domain" class="form-label">Domain</label>
+          <select id="domain" name="domain" class="form-select" [(ngModel)]="editedJob.domains" required>
+            <option *ngFor="let domain of domainOptions" [value]="domain">{{ domain }}</option>
+          </select>
+        </div>
+        <div class="d-flex justify-content-end">
+          <button type="button" class="btn btn-secondary me-2" (click)="closeDialog()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

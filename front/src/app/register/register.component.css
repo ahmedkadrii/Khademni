@@ -1,0 +1,268 @@
+:host {
+    display: block;
+    height: 100vh;
+    background: url('../../assets/img/bg.svg') no-repeat left center fixed;
+    background-size: contain;
+    position: relative;
+    background-size: 45%;
+  }
+  
+  .background-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Ensures it stays in the background */
+    background-color: #2A2F52;
+  
+  }
+  
+  .wave-image {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40%;
+    height: 100vh;
+  }
+  
+  .register-form h3{
+    color: #787FB5;
+  }
+  
+  .btn {
+    background-color: #38d39f;
+    color: white;
+    font-family: "Fjalla One", sans-serif;
+    letter-spacing: 4px;
+    font-size: 15px;
+  }
+  
+  /* Change the input focus border color to red */
+  .form-control:focus {
+    border-color: #38d39f;
+    box-shadow: 0 0 0 0.2rem rgb(5, 241, 163);
+  }
+  
+  .register-container {
+    position: absolute;
+    left: 60%;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 3em;
+    text-align: center;
+    z-index: 1;
+  }
+  
+  .register-container .avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 2em;
+  }
+  
+  .register-container h2 {
+    font-family: "Fjalla One", sans-serif;
+    margin-bottom: 1em;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #D4D9F4;
+    font-size: 2.9em;
+    letter-spacing: 3px;
+  }
+  
+  .form-group {
+    margin-bottom: 1em;
+    text-align: left;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5em;
+    color: #999;
+    font-weight: bold;
+  }
+  
+  .form-group .input-group {
+    display: flex;
+    align-items: center;
+    width: 30em;
+  }
+  
+  .input-group-prepend {
+    margin-right: 0.5em;
+  }
+  
+  .form-control {
+    border-radius: 4px;
+  }
+  
+  .btn {
+    border-radius: 4px;
+    padding: 0.75em;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .btn-block {
+    width: 100%;
+  }
+  
+  .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    margin-top: 0.5em;
+  }
+  
+  .tos {
+    margin-top: 1em;
+    font-size: 0.9em;
+    color: #787FB5;
+  }
+  
+  .tos a {
+    color: #38d39f;
+    text-decoration: none;
+  }
+  
+  .tos a:hover {
+    color: #2f9472;
+  }
+  
+  .register-link {
+    margin-top: 1em;
+    font-size: 1em;
+    color: #787FB5;
+  }
+  
+  .register-link a {
+    color: #38d39f;
+    text-decoration: none;
+  }
+  
+  .register-link a:hover {
+    color: #2f9472;
+  }
+  
+  /* Custom icon colors */
+  .input-group-text .fas {
+    color: #38d39f; /* Change this to your desired color */
+  }
+  
+  /* Media queries for responsiveness */
+  @media (max-width: 1200px) {
+    :host {
+      background-size: 50%;
+    }
+  
+    .wave-image {
+      width: 50%;
+    }
+  
+    .register-container {
+      left: 50%;
+      padding: 1.5em;
+    }
+  }
+  
+  @media (max-width: 992px) {
+    :host {
+      background:#2A2F52 ;
+    }
+  
+    .wave-image {
+      display: none;
+    }
+  
+    .register-container {
+      left: 20%;
+      padding: 1.5em;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .background-container,
+    .wave-image {
+      display: none;
+    }
+  
+    :host {
+      background: #2A2F52;
+    }
+  
+    .register-container {
+      left: 20%;
+      padding: 1em;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    :host {
+      background: #2A2F52;
+    }
+  
+    .background-container,
+    .wave-image {
+      display: none;
+    }
+  
+    .register-container {
+      left: 50%;
+      padding: 1em;
+      transform: translate(-50%, -50%);
+    }
+  }
+  
+  .form-control.ng-invalid.ng-touched,
+  .form-control.ng-invalid.ng-dirty {
+    border-color: red;
+    box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, 0.25);
+  }
+  
+  .invalid-feedback {
+    display: block;
+    color: red;
+  }
+  
+  /* LOADER */
+  .small-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    margin-top: 20px;
+  }
+  
+  .preloader-animation {
+    width: 50px;
+    height: 50px;
+    animation: fadeInOut 0.5s linear infinite;
+  }
+  
+  @keyframes fadeInOut {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+  }
+  /* LOADER END */
+  
+  
+  .modal.show {
+    display: block;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  
+  .modal-dialog-centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .blur {
+    filter: blur(5px);
+  }
+  
+  .d-block {
+    display: block;
+  }
+  

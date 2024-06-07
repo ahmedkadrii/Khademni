@@ -1,0 +1,52 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title"><i class="fas fa-briefcase"></i> {{ job?.title }}</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+      {{ errorMessage }}
+    </div>
+    <div class="mb-1">
+      <p><strong><i class="fas fa-info-circle"></i> <span class="titles">Job Description:</span></strong></p>
+      <p class="job-description"><span class="s-t">{{ job?.description }}</span></p>
+    </div>
+    <div class="mb-3">
+      <p><strong><i class="fas fa-map-marker-alt"></i> <span class="titles">City:</span></strong> <span class="s-t">{{ job?.cities }}</span></p>
+    </div>
+    <div class="mb-3">
+      <p><strong><i class="fas fa-industry"></i> <span class="titles">Domain:</span></strong> <span class="s-t">{{ job?.domains }}</span></p>
+    </div>
+    <div class="mb-3">
+      <p><strong><i class="fas fa-dollar-sign"></i> <span class="titles">Salary:</span></strong> <span class="s-t">{{ job?.salary.minSalary }} TND - {{ job?.salary.maxSalary }} TND</span></p>
+    </div>
+    <div class="mb-3">
+      <p><strong><i class="fas fa-calendar-alt"></i> <span class="titles">Date Posted:</span></strong><span class="s-t"> {{ job?.datePosted | date:'longDate' }}</span></p>
+    </div>
+
+    <ng-container *ngIf="isUserLoggedIn && userRole !== 'enterprise' && userRole !== 'admin'">
+      <ng-container *ngIf="!hasApplied() && !applicationSuccessful">
+        <button class="btn btn-primary w-100 mt-3" (click)="applyForJob(job._id)">
+          <i class="fas fa-paper-plane"></i> Apply Now
+        </button>
+      </ng-container>
+      <ng-container *ngIf="applicationSuccessful">
+        <p class="text-success font-weight-bold mt-3"><i class="fas fa-check-circle"></i> Application successful!</p>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="!isUserLoggedIn">
+      <div class="alert alert-warning mt-3">
+        You must be logged in to apply.
+      </div>
+    </ng-container>
+    <ng-container *ngIf="hasApplied() && !applicationSuccessful">
+      <p class="text-success font-weight-bold mt-3"><i class="fas fa-check-circle"></i> You already applied for this job.</p>
+    </ng-container>
+    <ng-container *ngIf="userRole === 'enterprise'">
+      <p class="text-danger font-weight-bold mt-3"><i class="fas fa-exclamation-triangle"></i> Enterprise users cannot apply for jobs.</p>
+    </ng-container>
+    <ng-container *ngIf="userRole === 'admin'">
+      <p class="text-danger font-weight-bold mt-3"><i class="fas fa-exclamation-triangle"></i> Admins cannot apply for jobs.</p>
+    </ng-container>
+  </div>
+</div>

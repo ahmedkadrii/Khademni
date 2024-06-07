@@ -1,0 +1,16 @@
+<div *ngIf="notifications.length > 0">
+    <div *ngFor="let notification of notifications.slice(0, maxNotifications)" class="dropdown-item">
+      <p>{{ notification.content }} <small>{{ notification.createdAt | date: 'medium' }}</small></p>
+       <!-- Display the date -->
+    </div>
+    <div *ngIf="notifications.length > maxNotifications" class="dropdown-item">
+      <!-- Message indicating that there are more notifications -->
+      {{ notifications.length - maxNotifications }} more notifications...
+    </div>
+  </div>
+  <div *ngIf="notifications.length === 0">
+    <div class="dropdown-item">
+      No new notifications.
+    </div>
+  </div>
+  

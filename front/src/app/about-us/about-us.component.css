@@ -1,0 +1,48 @@
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  h1, h2, h3, h4 {
+    color: #343a40;
+  }
+  
+  .lead {
+    font-size: 1.25rem;
+    font-weight: 300;
+  }
+  
+  button {
+    margin-top: 20px;
+  }
+  
+  .card {
+    border: none;
+    background-color: #f8f9fa;
+  }
+  
+  .card-title {
+    font-size: 1.5rem;
+  }
+  
+  .card-body ul {
+    padding-left: 1.5rem;
+  }
+  
+  blockquote {
+    border-left: .25rem solid #eee;
+    padding-left: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .shadow-sm {
+    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075);
+  }
+  

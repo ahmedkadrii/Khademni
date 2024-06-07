@@ -1,0 +1,18 @@
+.notification-list {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  
+  .notification-item {
+    background: #f8f9fa;
+    padding: 10px;
+    margin-bottom: 5px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+  }
+  
+  .no-notifications {
+    text-align: center;
+    color: #6c757d;
+  }
+  

@@ -1,0 +1,58 @@
+<nav class="navbar navbar-expand-lg" [ngClass]="{'dark-theme': isDarkTheme, 'light-theme': !isDarkTheme}">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <img [src]="isDarkTheme ? 'assets/blacklogosvg.svg' : 'assets/blacklogosvg.svg'" alt="MyLogo" class="logo">
+    </a>
+    <button class="navbar-toggler" type="button" (click)="toggleNavbar()" aria-controls="navbarNav" [attr.aria-expanded]="navbarOpen ? 'true' : 'false'" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" [ngClass]="{'show': navbarOpen}" id="navbarNav">
+      <ul class="navbar-nav mx-auto center-nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/jobs" routerLinkActive="active">Jobs</a>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn">
+          <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item" *ngIf="isLoggedIn && isEnterprise">
+          <button class="btn btn-primary" (click)="openAddJobModal()">Add Job</button>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn && !isAdmin">
+          <a class="nav-link" [routerLink]="['/', loggedInUsername]">
+            <i class="bi bi-person-circle"></i>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn && !isEnterprise && !isAdmin">
+          <a class="nav-link" routerLink="/bookmarks" routerLinkActive="active">
+            <i class="bi bi-bookmarks"></i>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn">
+          <a class="nav-link position-relative" routerLink="/conversations" routerLinkActive="active">
+            <i class="bi bi-chat-dots"></i>
+            <span *ngIf="hasUnreadMessages" class="unread-dot"></span>
+          </a>
+        </li>
+        <li class="nav-item dropdown" *ngIf="isLoggedIn">
+          <a class="nav-link dropdown-toggle" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-bell"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationDropdown">
+            <app-notification></app-notification>
+          </div>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn">
+          <a class="nav-link" (click)="logout()">Logout</a>
+        </li>
+        <li class="nav-item" *ngIf="!isLoggedIn">
+          <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

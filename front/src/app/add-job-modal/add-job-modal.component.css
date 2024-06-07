@@ -1,0 +1,18 @@
+/* add-job-modal.component.css */
+
+.modal-header {
+    border-bottom: none;
+  }
+  
+  .modal-footer {
+    border-top: none;
+  }
+  
+  .form-label {
+    font-weight: 500;
+  }
+  
+  .form-control, .form-select {
+    border-radius: 0.25rem;
+  }
+  

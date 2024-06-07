@@ -1,0 +1,268 @@
+body, html {
+    height: 150vh;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #ffffff;
+    overflow-x: hidden; /* Prevent horizontal scrollbar */
+  }
+  
+  .profile-page {
+    margin: 0;
+    width: 100%; /* Ensure the profile-page takes the full width */
+    box-sizing: border-box; /* Include padding in the width calculation */
+    background-color: #ffffff;
+    overflow-y: auto; /* Enable vertical scrolling */
+  }
+  
+  .profile-header {
+    background-color: #ffffff;
+    padding: 70px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    box-sizing: border-box; /* Include padding in the width calculation */
+    box-shadow: inset -8px -1px 20px 9px rgba(0, 0, 0, 0.1);
+    background-image: url(../../assets/hader-bg.png);
+    background-repeat: no-repeat;
+    background-size: fit;
+  }
+  
+  .profile-logo {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    cursor: pointer; /* Make the cursor change to a pointer when hovering over the image */
+    position: absolute;
+    bottom: -75px; /* Move the logo down */
+    left: 20px;
+  
+  }
+  
+  .profile-info {
+    margin-left: 180px;
+   
+  
+  }
+  
+  .profile-name {
+    position: absolute;
+    bottom: -10px;
+    left: 180px;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #2A2F52;
+    font-weight: bold;
+  }
+  
+  .profile-bio {
+    font-size: 1rem;
+    margin-left: 180px; /* Align bio with the name */
+  }
+  
+  .profile-stats {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box; /* Include padding in the width calculation */
+  }
+  
+  .profile-stats .stat {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .profile-stats .stat h4 {
+    margin: 0;
+    color: #2A2F52;
+  }
+  
+  .profile-stats .stat p {
+    color: #787FB5;
+  }
+  
+  .title-p {
+    color: #2A2F52;
+    font-size: 15px;
+    
+  }
+  
+  .info-p {
+    color: #787FB5;
+    font-size: 15px;
+  }
+  
+  .profile-content {
+    padding: 30px;
+    box-sizing: border-box; /* Include padding in the width calculation */
+    margin-top: 75px; /* Ensure content is below the profile logo */
+  }
+  
+  .profile-details {
+    background-color: #ffffff;
+    padding: 60px;
+    padding-top: 4%;
+    border-radius: 10px;
+    box-shadow: 0px 0 0px 2px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box; /* Include padding in the width calculation */
+  }
+  
+  .custom-icon {
+    color: #38d39f; /* Change this color to whatever you prefer */
+    margin-right: 8px;
+  }
+  
+  .btn {
+    transition: background-color 0.3s, box-shadow 0.3s;
+  }
+  
+  .btn:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .common-container {
+    max-width: 800px; /* Set a maximum width for the container */
+    margin: 0 auto; /* Center the container */
+    padding: 0 15px; /* Add padding to the sides */
+  }
+  
+  .post-form-container {
+    margin-top: 20px;
+    padding: 0 15px;
+  }
+  
+  .time-post {
+    color: #787FB5;
+  }
+  
+  .post-container {
+    padding: 0 15px;
+  }
+  
+  .custom-textarea {
+    background-color: #ffffff; /* Initial background color */
+    color: #2A2F52; /* Text color */
+    border: 1px solid #ffffff; /* Border color */
+    box-shadow: inset 1px -1px 8px rgba(0, 0, 0, 0.308);
+  
+  }
+  
+  .custom-textarea::placeholder {
+    color: rgba(0, 0, 0, 0.411); /* Placeholder text color */
+  }
+  
+  .btn-success {
+    color: white;
+  }
+  
+  .custom-textarea:focus {
+    background-color: #ffffff; /* Background color on focus */
+    color: #2A2F52; /* Text color on focus */
+    outline: none; /* Remove default outline */
+    border: 1px solid #ffffff; /* Border color on focus */
+  }
+  
+  .post-form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Make sure the form takes the full width */
+    box-sizing: border-box;
+  }
+  
+  .post-form textarea {
+    resize: none;
+  }
+  
+  .post {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    width: 100%; /* Make sure the posts take the full width */
+    box-sizing: border-box;
+  }
+  
+  .profile-picture {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .post p {
+    margin: 0 0 10px;
+    color: #2A2F52;
+  }
+  
+  .post small {
+    color: #888;
+    display: block;
+  }
+  
+  .post .dropdown {
+    display: inline-block;
+  }
+  
+  .post .btn {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+  }
+  
+  .me-3 {
+    margin-right: 1rem;
+  }
+  
+  .ms-auto {
+    margin-left: auto;
+  }
+  
+  .edit-profile-btn {
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    background-color: #f1f1f1;
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.1);
+  
+  }
+  
+  .edit-profile-text {
+    display: none;
+  }
+  
+  @media (min-width: 768px) {
+    .edit-profile-text {
+      display: inline;
+    }
+    .edit-profile-btn {
+      bottom: auto;
+      right: auto;
+      margin-left: auto;
+      margin-top: auto;
+    }
+  
+  }
+  
+  .skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .skill-box {
+    display: flex;
+    align-items: center;
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    padding: 0.375rem;
+    margin-right: 5px;
+    margin-bottom: 5px;
+  }
+  
+  .skill-box .btn-close {
+    margin-left: 5px;
+    font-size: 0.8rem;
+  }
+  

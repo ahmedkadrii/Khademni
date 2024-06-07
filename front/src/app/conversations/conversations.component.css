@@ -1,0 +1,170 @@
+/* Full-height container */
+.container-fluid {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+}
+
+.row {
+  width: 100%;
+  max-width: 1200px; /* Max width for the chat container */
+  height: 80%; /* Adjust the height as needed */
+  display: flex;
+  border: red; /* Remove the border */
+}
+
+.col-4, .col-8 {
+  height: 100%;
+  overflow-y: auto;
+  background-color: #ffffff;
+  box-shadow: inset 0px 0px 20px 9px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+  color: #2A2F52;
+}
+
+.btn-primary {
+  border-radius: 20px; /* Adjust the radius as needed */
+}
+
+.list-group {
+  padding: 10px; /* Add padding to the list group */
+  background-color: #ffffff;
+  box-shadow: inset 6px 5px 10px rgb(0 0 0 / 10%);
+}
+
+.list-group-item {
+  cursor: pointer;
+  padding: 15px 20px; /* Added padding */
+  border: none;
+  border-radius: 10px; /* Added border radius */
+  margin: 5px 0; /* Added margin for spacing */
+  background-color: #e2e6ea; /* Light background color */
+  transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transitions */
+  display: flex; /* Flex for avatar and text */
+  align-items: center; /* Center align items */
+  position: relative;
+}
+
+.list-group-item img {
+  width: 40px; /* Avatar size */
+  height: 40px; /* Avatar size */
+  border-radius: 50%; /* Circular avatar */
+  margin-right: 15px; /* Space between avatar and text */
+}
+
+.list-group-item h5 {
+  margin: 0; /* Remove default margin */
+  font-size: 16px; /* Font size for username */
+}
+
+.list-group-item:hover {
+  background-color: #bcc0c4; /* Darker background on hover */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Slight shadow on hover */
+}
+
+.form-control, .btn {
+  border-radius: .7em;
+}
+
+.flex-grow-1 {
+  flex: 1 1 auto;
+}
+
+.message-bubble {
+  position: relative;
+  padding: 10px 15px; /* Adjusted padding */
+  border-radius: 20px;
+  margin-bottom: 10px;
+  max-width: 70%;
+  word-wrap: break-word;
+  display: inline-block;
+}
+
+.message-bubble::after {
+  content: '';
+  position: absolute;
+  border-style: solid;
+  display: block;
+  width: 0;
+}
+
+.message-bubble-left {
+  background-color: #2bff00;
+  color: #fff;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.message-bubble-left::after {
+  border-width: 10px 10px 10px 0;
+  border-color: transparent #2bff00 transparent transparent;
+  left: -7px;
+  top: 50%; /* Align the arrow vertically */
+  transform: translateY(-50%);
+}
+
+.message-bubble-right {
+  background-color: #007aff;
+  color: #fff;
+  margin-right: 10px;
+  align-self: flex-end;
+}
+
+.message-bubble-right::after {
+  border-width: 10px 0 10px 10px;
+  border-color: transparent transparent transparent #007aff;
+  right: -7px;
+  top: 50%; /* Align the arrow vertically */
+  transform: translateY(-50%);
+}
+
+.text-end {
+  text-align: right;
+}
+
+.text-start {
+  text-align: left;
+}
+
+.p-2 {
+  padding: 10px;
+}
+
+.mb-2 {
+  margin-bottom: 10px;
+}
+
+.message-bubble {
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+/* Load More Button */
+.btn-link {
+  color: #007aff;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-link:hover {
+  text-decoration: underline;
+}
+
+.mb-1 {
+  color: #2A2F52;
+}
+
+/* Unread message indicator */
+.unread-dot {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+}

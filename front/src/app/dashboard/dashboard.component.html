@@ -1,0 +1,138 @@
+<div class="dashboard-container">
+    <div class="container mt-4">
+      <!-- User Dashboard -->
+      <div *ngIf="userRole === 'user'" class="user-dashboard">
+        <h2 class="text-center mb-4">My Applied Jobs</h2>
+        <div class="row">
+          <div class="col-md-6 col-lg-4 mb-4" *ngFor="let job of appliedJobs" [ngClass]="getStatusClass(job.status)">
+            <div class="card h-100 border-0 shadow-sm animated-card">
+              <div class="card-header bg-transparent border-bottom-0">
+                <h5 class="card-title"><i class="bi bi-briefcase me-2"></i>{{ job.title }}</h5>
+              </div>
+              <div class="card-body">
+                <p class="card-text"><i class="bi bi-geo-alt-fill me-2"></i>{{ job.cities }}</p>
+                <p class="card-text"><i class="bi bi-currency-dollar me-2"></i>{{ job.salary.minSalary }} TND - {{ job.salary.maxSalary }} TND</p>
+              </div>
+              <div class="card-footer bg-transparent border-top-0">
+                <p class="card-text"><span class="badge badge-secondary">{{ job.status }}</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+  <!-- Enterprise Dashboard -->
+  <div *ngIf="userRole === 'enterprise'" class="enterprise-dashboard">
+    <h1 class="text-center mb-4">My Jobs</h1>
+  
+    <div class="row">
+      <div class="col-md-6 col-lg-4 mb-4" *ngFor="let job of jobs">
+        <div class="card h-100 border-0 shadow-sm animated-card">
+          <div class="card-header bg-transparent border-bottom-0">
+            <h5 class="card-title d-flex align-items-center">
+              <i class="bi bi-briefcase me-2"></i>{{ job.title }}
+              <span *ngIf="job.isPastDeadline" class="badge bg-danger ms-2">Closed</span>
+              <span *ngIf="!job.isPastDeadline" class="badge bg-success ms-2">Open</span>
+  
+            </h5>
+          </div>
+          <div class="card-body">
+            <p class="card-text"><i class="bi bi-geo-alt-fill me-2"></i>{{ job.cities }}</p>
+            <p class="card-text"><i class="bi bi-currency-dollar me-2"></i>{{ job.salary.minSalary }} TND - {{ job.salary.maxSalary }} TND</p>
+                  </div>
+          <div class="card-footer bg-transparent border-top-0 d-flex justify-content-between">
+            <button class="btn btn-primary mt-3" (click)="navigateToApplicants(job._id)"><i class="bi bi-people-fill me-2"></i>See Applicants</button>
+            <button class="btn btn-secondary mt-3" (click)="openEditJobModal(job)"><i class="bi bi-pencil-fill me-2"></i>Edit Job</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Admin Dashboard -->
+  <div *ngIf="userRole === 'admin'" class="admin-dashboard">
+    <h1 class="text-center mb-4">Admin Dashboard</h1>
+  
+    <!-- Users Count Card -->
+    <div class="card h-100 border-0 shadow-sm animated-card mb-4" (click)="viewUsers()">
+      <div class="card-header bg-transparent border-bottom-0">
+        <h5 class="card-title"><i class="bi bi-people-fill me-2" style="font-size: 2rem;"></i>Users: {{ totalUsers }}</h5>
+      </div>
+    </div>
+  
+    <!-- Enterprise Count Card -->
+    <div class="card h-100 border-0 shadow-sm animated-card mb-4">
+      <div class="card-header bg-transparent border-bottom-0">
+        <h5 class="card-title"><i class="bi bi-people-fill me-2" style="font-size: 2rem;"></i>Enterprises: {{ totalEnterprises }}</h5>
+      </div>
+    </div>
+  
+    <!-- Pending Enterprises -->
+    <div>
+      <h2 class="mb-4">Pending Enterprises</h2>
+      <div class="row">
+        <div class="col-md-6 col-lg-4 mb-4" *ngFor="let enterprise of pendingEnterprises">
+          <div class="card h-100 border-0 shadow-sm animated-card">
+            <div class="card-header bg-transparent border-bottom-0">
+              <h5 class="card-title"><i class="bi bi-building me-2"></i>{{ enterprise.name }}</h5>
+            </div>
+            <div class="card-body">
+              <p class="card-text"><i class="bi bi-envelope-fill me-2"></i>{{ enterprise.email }}</p>
+              <p class="card-text"><i class="bi bi-geo-alt-fill me-2"></i>{{ enterprise.address }}</p>
+              <p class="card-text">
+                <i class="bi bi-file-earmark-text-fill me-2"></i>
+                <a [href]="getBusinessDocumentUrl(enterprise.businessDocument)" download *ngIf="enterprise.businessDocument">
+                  Download Business Document
+                </a>
+              </p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0 d-flex justify-content-between">
+              <button class="btn btn-success mt-3" (click)="approveEnterprise(enterprise._id)"><i class="bi bi-check-circle-fill me-2"></i>Approve</button>
+              <button class="btn btn-danger mt-3" (click)="rejectEnterprise(enterprise._id)"><i class="bi bi-x-circle-fill me-2"></i>Reject</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Reports Section -->
+    <div>
+      <h2 class="mb-4">Reports</h2>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Reported By</th>
+              <th>Reported</th>
+              <th>Reason</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Actions</th>
+  
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let report of reports">
+              <td><a [routerLink]="['/', report.reportedBy?.username]">{{ report.reportedBy?.username }}</a></td>
+              <td><a [routerLink]="['/', report.reported?.username]">{{ report.reported?.username }}</a></td>
+              <td>{{ report.reason }}</td>
+              <td>{{ report.date | date: 'short' }}</td>
+              <td>{{ report.status }}</td>
+              <td>
+                <button class="btn btn-success" (click)="markAsReviewed(report._id)" *ngIf="report.status === 'pending'">
+                  Mark as Reviewed
+                </button>
+              </td>
+  
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  

@@ -1,0 +1,22 @@
+/* dialog.component.css */
+.checkmark-icon {
+    font-size: 48px;
+    color: #4caf50; /* Green color */
+    margin-bottom: 10px;
+  }
+  
+
+  *{
+    background-color: red;
+  }
+
+  /* dialog.component.css */
+::ng-deep .mat-dialog-container {
+    background-color: #fff; /* Change background color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add box shadow */
+    border-radius: 8px; /* Add border radius */
+    padding: 20px; /* Add padding */
+  }
+  
+  /* Add additional styles for dialog content here */
+  

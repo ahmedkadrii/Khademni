@@ -1,0 +1,719 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Anton&family=Aoboshi+One&family=Archivo+Black&family=Bebas+Neue&family=Belanosima:wght@400;600;700&family=Poetsen+One&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+.home-intro {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    height: 68vh;
+    overflow: hidden;
+    transition: background-color 0.3s, color 0.3s;
+    background-color: #ffffff;
+
+}
+
+.intro-text {
+    max-width: 45%;
+    margin-right: -60px;
+    text-align: left;
+    z-index: 2;
+}
+
+.highlight {
+    color: #71DB97;
+}
+
+.newsletter-section .container h2{
+font-size: 2em;
+color: #2A2F52;
+
+}
+
+.intro-text h1 {
+    font-size: 3rem;
+    color: #2A2F52;
+    margin-bottom: 10px;
+    font-family: "Lexend Deca", sans-serif;
+    font-weight: 600;
+    letter-spacing: 2px;
+
+}
+
+
+/* NEWSLETTER */
+.form-control{
+    background-color: #ffffff;
+ 
+}
+
+.form-control::placeholder {
+    color: #787FB5; /* Placeholder text color */
+    opacity: 1; /* Ensures the color is applied as expected across browsers */
+  }
+  
+.intro-text p {
+    font-size: 1.7rem;
+    color: #617FB5;
+    margin-bottom: 0;
+    line-height: 37px;
+    max-width: 60%;
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+.hero-image {
+    position: relative;
+    max-width: 40%;
+    z-index: 2;
+}
+
+.hero-image img {
+    width: 70%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.background-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.background-overlay::before,
+.background-overlay::after {
+    content: '';
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    top: 0;
+    transform: skewX(-20deg);
+    transform-origin: top right;
+    z-index: -1;
+}
+.call-to-action {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 8px 15px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #71DB97;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.call-to-action:hover {
+    background-color: #60BA80;
+    transform: translateY(-3px);
+}
+
+
+.background-overlay::before {
+    background: #6654C3;
+    right: -15%;
+}
+
+.background-overlay::after {
+    background: #71DB97;
+    right: -35%;
+}
+
+
+.stats-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 16vh;
+    padding: 0;
+    text-align: center;
+    background-color: #ffffff;
+}
+
+
+
+.stat {
+    flex: 0 1 17%;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.stat h2 {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    color: #2A2F52;
+}
+
+.stat p {
+    font-size: 1rem;
+    margin: 0;
+    color: #787FB5;
+}
+
+
+  
+
+.jobs-section{
+    padding: 40px 20px;
+    background: #ffffff;
+}
+
+.jobs-section h2,
+.latest-jobs-section h2 {
+    text-align: center;
+    color: #2A2F52;
+    margin-bottom: 60px;
+    padding-top: 150px;
+}
+
+.jobs-section .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 300px);
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.jobs-section .card {
+    background: #ffffff;
+    color: black;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    height: 300px;
+}
+
+.jobs-section .card img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.jobs-section .card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 5px;
+    color: #2A2F52;
+}
+
+.jobs-section .card p {
+    font-size: 1rem;
+    color: #71DB97;
+    padding-top: 50px;
+}
+
+.latest-jobs-section {
+    padding: 20px;
+    background: #ffffff;
+}
+
+.latest-jobs-section h2 {
+    text-align: center;
+    color: #2A2F52;
+    margin-bottom: 60px;
+    padding-top: 100px;
+}
+
+.latest-jobs-section .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three columns */
+    gap: 20px; /* Reduced gap between cards */
+    justify-content: center; /* Center the cards in the container */
+    align-items: start; /* Align items to the start to reduce vertical spacing */
+    max-width: 1200px; /* Increase max-width to ensure grid takes more space */
+    margin: 0 auto; /* Center the grid within its container */
+}
+
+.latest-jobs-section .card {
+    background: #ffffff; /* Match background color */
+    color: black; /* White text color */
+    padding: 20px; /* Adjust padding */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 410px; /* Adjusted width */
+    height: 380px; /* Adjusted height */
+    margin: 0 auto; /* Center card horizontally */
+}
+
+.latest-jobs-section .card .image-container {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px; /* Reduced margin to make cards closer vertically */
+}
+
+.latest-jobs-section .card img {
+    width: 100%;
+    height: auto; /* Adjusted image size */
+}
+
+.latest-jobs-section .card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 5px; /* Reduced margin to make cards closer vertically */
+    color: #2A2F52; /* White color */
+}
+
+.latest-jobs-section .card .job-details {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 1rem;
+    color: #6197C7; /* Match color for details */
+}
+
+
+/* NEW SECTION */
+/* New section styles */
+.new-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background: #ffffff;
+    color: black; /* Update color to white for contrast */
+    padding-top: 180px;
+}
+
+.new-section .section-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.new-section .section-text {
+    max-width: 45%;
+    margin-right: 40px;
+}
+
+.new-section .section-text h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #2A2F52;
+    font-family: "Lexend Deca", sans-serif;
+}
+
+.new-section .section-text p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #787FB5;
+}
+
+.new-section .section-text ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.new-section .section-text ul li {
+    margin-bottom: 10px;
+    color: #2A2F52;
+}
+
+.bi-eye{
+    color: #787FB5;
+}
+
+.bi-cash{
+    color: #787FB5;
+}
+
+.new-section .section-text ul li::before {
+    content: "🌟";
+    margin-right: 10px;
+    color: #71DB97;
+}
+
+.new-section .find-jobs-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #71DB97;
+    color: #ffffff;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.new-section .section-image {
+    position: relative;
+    display: inline-block;
+    max-width: 45%;
+
+}
+
+.new-section .section-image::after {
+    content: "";
+    position: absolute;
+    top: 10px; /* Positioning background a bit down from the top */
+    right: -30px; /* Positioning background to the right */
+    width: 528px; /* Width of the background on the right */
+    height: calc(100% + 20px); /* Height adjusted to extend to the bottom */
+    background: #CDECFD; /* Background color with transparency */
+    z-index: 0; /* Place behind the image */
+    border-radius: 30px 30px 30px 30px; /* Rounded corners on the right side */
+}
+
+.new-section .section-image img {
+    max-width: 100%;
+    border-radius: 30px; /* Image border radius */
+    position: relative;
+    z-index: 1;
+    padding-bottom: 10px; /* Add padding at the bottom to create space for the background */
+}
+
+.new-section .section-image .image-caption {
+    position: absolute;
+    bottom: -20px;
+    left: 20px;
+    background: #1f1c3c;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.new-section .section-image .image-caption span {
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+
+.new-section .section-image .image-caption p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+
+
+
+/* NEWSLETTER SECTION */
+
+/* Newsletter section styles */
+.newsletter-section {
+    padding: 60px 20px;
+    background:#E3F8EA; /* Light green background */
+    color: #000000;
+    position: relative;
+    margin-top: 50px;
+    padding-bottom: 160px;
+}
+
+.newsletter-section .container {
+    position: relative;
+    z-index: 1;
+    padding-top: 40px;
+}
+
+.newsletter-content h2 {
+    font-size: 5em;
+    margin-bottom: 30px;
+    color: #2a2f52; /* Darker text color */
+    font-family: "Lexend Deca", sans-serif;
+    font-weight: 700;
+}
+
+.newsletter-content .highlight {
+    color: #71DB97; /* Highlight color for "News & Updates" */
+}
+
+.newsletter-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.newsletter-form .form-control {
+    padding: 10px 20px;
+    font-size: 1rem;
+
+    border-radius: 5px 0 0 5px; /* Rounded corners */
+    outline: none;
+    width: 70%;
+}
+
+.newsletter-form .btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    background: #71DB97; /* Green background */
+    color: #ffffff; /* White text */
+    border-radius: 0 5px 5px 0; /* Rounded corners */
+    cursor: pointer;
+}
+
+.newsletter-form .btn:hover {
+    background: #5AC085; /* Darker green on hover */
+}
+
+/* Emoji styles */
+.emoji-left, .emoji-right {
+    font-size: 10rem;
+    color: rgba(113, 219, 151, 0.1); /* Light green color with transparency */
+    z-index: 0;
+    white-space: nowrap;
+}
+
+.emoji-left {
+    top: 10%;
+    left: 5%;
+    transform: rotate(-40deg); /* Rotate the icon to the left */
+
+}
+
+.emoji-right {
+    top: 20%;
+    right: 5%;
+    transform: rotate(40deg); /* Rotate the icon to the right */
+
+}
+.new-section, .newsletter-section {
+    margin-bottom: 0;  /* Ensure no bottom margin for new section */
+    margin-top: 0;     /* Ensure no top margin for newsletter section */
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .newsletter-form {
+        flex-direction: column;
+    }
+
+    .newsletter-form .form-control {
+        width: 100%;
+        border-radius: 5px 5px 0 0; /* Adjust border radius for full width */
+        margin-bottom: 10px;
+    }
+
+    .newsletter-form .btn {
+        width: 100%;
+        border-radius: 0 0 5px 5px; /* Adjust border radius for full width */
+    }
+
+    .emoji-left, .emoji-right {
+        font-size: 5rem; /* Adjust icon size for smaller screens */
+        top: 5%;
+    }
+
+    .emoji-left {
+        left: 2%;
+    }
+
+    .emoji-right {
+        right: 2%;
+    }
+}
+
+
+/* Stat section responsive adjustments */
+@media (max-width: 768px) {
+    .stats-section {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+    }
+
+    .stat {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 15px;
+        margin-top: 40px;
+    }
+}
+
+@media (max-width: 992px) {
+    .home-intro {
+        flex-direction: column;
+        text-align: center;
+        height: auto;
+    }
+
+    .intro-text,
+    .hero-image {
+        max-width: 90%;
+    }
+
+    .hero-image {
+        margin-right: 5px;
+        margin-top: 20px;
+    }
+
+    .intro-text {
+        margin-bottom: 20px;
+        margin-right: -39%;
+    }
+
+    .background-overlay::before,
+    .background-overlay::after {
+        content: '';
+        position: absolute;
+        width: 50%;
+        height: 100%;
+        top: 0;
+        transform: skewX(-20deg);
+        transform-origin: top right;
+        z-index: -1;
+    }
+
+    .background-overlay::before {
+        background: #6654C3;
+        right: -10%;
+    }
+
+    .background-overlay::after {
+        background: #71DB97;
+        right: -50%;
+    }
+}
+
+/* Responsive adjustments for cards grid */
+@media (max-width: 1200px) {
+    .jobs-section .cards-grid{
+        grid-template-columns: repeat(2, 1fr); /* Two columns */
+        max-width: 100%; /* Ensure full width utilization */
+        padding-left: 5%;
+
+    }
+
+    .latest-jobs-section .cards-grid {
+        grid-template-columns: repeat(1, 1fr); /* Two columns */
+        max-width: 100%; /* Ensure full width utilization */
+
+    }
+}
+
+@media (max-width: 768px) {
+    .jobs-section .cards-grid,
+    .latest-jobs-section .cards-grid {
+        grid-template-columns: 1fr; /* One column */
+        max-width: 100%; /* Ensure full width utilization */
+    }
+
+    .latest-jobs-section .card,
+    .jobs-section .card {
+        width: 100%; /* Full width for smaller screens */
+        margin: 0 auto; /* Center card within the grid */
+    }
+}
+
+/* Explore Jobs by Category centering adjustment */
+@media (max-width: 1200px) {
+    .jobs-section .cards-grid {
+        justify-content: center; /* Center the grid */
+    }
+}
+
+@media (max-width: 768px) {
+    .jobs-section .cards-grid {
+        grid-template-columns: 1fr;
+        justify-content: center; /* Center the grid */
+    }
+
+    .jobs-section .card {
+        margin: 0 auto; /* Center card within the grid */
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .new-section .section-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .new-section .section-text {
+        max-width: 90%;
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .new-section .section-image {
+        max-width: 90%;
+        margin: 0 auto;
+    }
+
+    .new-section .section-image::after {
+        right: -15px; /* Adjust for smaller screens */
+        width: 15px; /* Adjust for smaller screens */
+    }
+
+    .new-section .section-image .image-caption {
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: -30px;
+    }
+}
+
+/* GIF SECTION */
+
+/* Styles for the new section with GIF */
+.realtime-interaction-section {
+    padding: 60px 20px;
+    background: #ffffff; /* Match existing section background */
+    text-align: center;
+    color: #2A2F52; /* Match existing text color */
+    padding-bottom: 100px;
+  }
+  
+  .realtime-interaction-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 60px;
+    margin-top: 30px;
+    color: #2A2F52; /* Highlight color for the headline */
+    font-family: "Lexend Deca", sans-serif;
+    font-weight: 700;
+  }
+
+  .rt{
+    color: #71DB97; /* Highlight color for the headline */
+
+  }
+  
+  .realtime-interaction-section .gif-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .realtime-interaction-section .gif-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px; /* Optional: Add some border radius to the GIF */
+  }
+  
+  /* Adjustments for the new section */
+  @media (max-width: 768px) {
+    .realtime-interaction-section h1 {
+      font-size: 2rem; /* Smaller font size for smaller screens */
+    }
+  
+    .realtime-interaction-section .gif-container img {
+      max-width: 90%; /* Ensure the GIF fits well on smaller screens */
+    }
+  }
+  

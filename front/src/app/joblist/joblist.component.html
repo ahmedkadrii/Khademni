@@ -1,0 +1,159 @@
+<body>
+
+    <div class="header">
+        <div class="header-content">
+          <div class="header-text">
+            <h1>Find Your Dream Jobs</h1>
+            <p>Professional networking site LinkedIn has grown to become a major platform for both employers and candidates who're looking for the right job.</p>
+          </div>
+          <div class="header-image">
+            <img src="../../assets/pattern.png" alt="Pattern">
+          </div>
+        </div>
+      </div>
+      
+      <!-- JOB SECTION -->
+      <div class="container">
+        <div class="joblist-container row">
+          <div class="filter-section col-md-3">
+            <div class="filter-header d-flex justify-content-between align-items-center">
+              <h3>Filter</h3>
+              <button class="btn btn-link" (click)="resetFilters()">Clear all</button>
+            </div>
+            <div class="filter-group">
+              <!-- <h4>Date Post</h4>
+              <div class="mb-3">
+                <select class="custom-select" style="background-color: rgba(194, 194, 194, 0.533); color: white; border: none;">
+                  <option selected>Newest</option>
+                  <option value="1">Oldest</option>
+                </select>
+              </div> -->
+            </div>
+            <div class="filter-group">
+              <h4>Job Type</h4>
+              <div>
+                <input type="checkbox" id="full-time" (change)="toggleTypeSelection('Full Time')">
+                <label for="full-time">Full Time</label>
+              </div>
+              <div>
+                <input type="checkbox" id="part-time" (change)="toggleTypeSelection('Part Time')">
+                <label for="part-time">Part Time</label>
+              </div>
+              <div>
+                <input type="checkbox" id="remote" (change)="toggleTypeSelection('Remote')">
+                <label for="remote">Remote</label>
+              </div>
+              <div>
+                <input type="checkbox" id="freelancer" (change)="toggleTypeSelection('Freelancer')">
+                <label for="freelancer">Freelancer</label>
+              </div>
+            </div>
+            <div class="filter-group">
+              <h4>Range Salary</h4>
+              <div>
+                <input type="radio" name="salary" id="under-500" (change)="setSalaryRange(0, 500)">
+                <label for="under-500">Under 500 TND</label>
+              </div>
+              <div>
+                <input type="radio" name="salary" id="under-650" (change)="setSalaryRange(500, 900)">
+                <label for="under-650">500 TND - 900 TND</label>
+              </div>
+              <div>
+                <input type="radio" name="salary" id="under-800" (change)="setSalaryRange(900, 1000)">
+                <label for="under-800">900 TND - 1200 TND</label>
+              </div>
+              <div>
+                <input type="radio" name="salary" id="under-1000" (change)="setSalaryRange(1000, 1500)">
+                <label for="under-1000">1200 TND - 1500 TND</label>
+              </div>
+              <div>
+                <input type="radio" name="salary" id="up-to-1500" (change)="setSalaryRange(1500, 2000)">
+                <label for="up-to-1500">1500 TND - 2000 TND</label>
+              </div>
+              <div>
+                <input type="radio" name="salary" id="above-2000" (change)="setSalaryRange(2000, null)">
+                <label for="above-2000">Above 2000 TND</label>
+              </div>
+            </div>
+            <div class="filter-group">
+              <h4>Experience Level</h4>
+              <div>
+                <input type="checkbox" id="internship" (change)="toggleExpSelection('Internship')">
+                <label for="internship">Internship</label>
+              </div>
+              <div>
+                <input type="checkbox" id="fresher" (change)="toggleExpSelection('Fresher')">
+                <label for="fresher">Fresher</label>
+              </div>
+              <div>
+                <input type="checkbox" id="2-years" (change)="toggleExpSelection('2+ Years')">
+                <label for="2-years">2+ Years</label>
+              </div>
+              <div>
+                <input type="checkbox" id="5-years" (change)="toggleExpSelection('5+ Years')">
+                <label for="5-years">5+ Years</label>
+              </div>
+            </div>
+          </div>
+          <div class="joblist-section col-md-8">
+            <div class="search-bar mb-4 d-flex">
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                <input type="text" class="form-control me-2" placeholder="Search for jobs, salary ..." [(ngModel)]="searchTitle">
+              </div>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                <input type="text" class="form-control me-2" placeholder="Location ..." [(ngModel)]="selectedCity">
+              </div>
+              <button class="btn w-100" (click)="searchJobs()">
+                <i class="bi bi-search me-5 "></i> Find
+              </button>
+            </div>
+            <div class="job-count text-end mb-4">
+              <p>{{ jobs.length }} Jobs Found</p>
+            </div>
+            <div class="job-card p-3 mb-4 rounded shadow-sm" *ngFor="let job of jobs">
+              <div class="job-card-header d-flex justify-content-between align-items-center mb-2">
+                <div class="d-flex align-items-center">
+                  <a [routerLink]="'/' + job.createdBy.username">
+                    <img [src]="'http://localhost:3000' + job.createdBy.logo" alt="{{ job.createdBy.companyName }} Logo" class="img-fluid rounded-circle">
+                  </a>
+                  <h3 class="mb-0 ">{{ job.title }}</h3>
+                </div>
+                                <div class="job-meta">
+                  <span><i class="bi bi-clock"></i> {{ job?.datePosted | date:'longDate' }}</span>
+                </div>
+              </div>
+              <div class="job-card-body mb-3">
+                <p>{{ job?.description }}</p>
+              </div>
+              <div class="job-card-footer d-flex justify-content-between align-items-center">
+                <div>
+                  <span class="badge bg-success me-1">{{ job?.domains }}</span>
+                  <span class="badge bg-warning text-dark me-1">{{ job?.exp }}</span>
+                  <span class="badge bg-info text-dark me-1">{{ job?.types }}</span>
+                  <span class="badge bg-danger me-1">Closes: {{ job?.deadline | date:'longDate' }}</span>
+                </div>
+                <button class="btn btn-link" *ngIf="isLoggedIn && !isEnterprise && isBookmarked(job._id)" (click)="removeBookmark(job._id)">
+                  <i class="bi bi-bookmark-fill"></i>
+                </button>
+                <button class="btn btn-link" *ngIf="isLoggedIn && !isEnterprise && !isBookmarked(job._id)" (click)="bookmarkJob(job._id)">
+                  <i class="bi bi-bookmark"></i>
+                </button>
+                <button class="btn apply-btn" (click)="openJobDetails(job)">Read More</button>
+              </div>
+            </div>
+    
+            <!-- Pagination Controls -->
+            <div class="pagination-controls d-flex justify-content-between align-items-center">
+              <button class="btn btn-secondary" (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+              <span>Page {{ currentPage }} of {{ totalPages }}</span>
+              <button class="btn btn-secondary" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+            </div>
+    
+          </div>
+        </div>
+      </div>
+      
+    </body>
+    

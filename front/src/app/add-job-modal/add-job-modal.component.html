@@ -1,0 +1,58 @@
+<div class="modal-header">
+    <h4 class="modal-title">Add Job</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="addJob()">
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" id="title" name="title" class="form-control" [(ngModel)]="jobTitle" required>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea id="description" name="description" class="form-control" [(ngModel)]="description" required></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="minSalary" class="form-label">Minimum Salary</label>
+        <input type="number" id="minSalary" name="minSalary" class="form-control" [(ngModel)]="minSalary" required>
+      </div>
+      <div class="mb-3">
+        <label for="maxSalary" class="form-label">Maximum Salary</label>
+        <input type="number" id="maxSalary" name="maxSalary" class="form-control" [(ngModel)]="maxSalary" required>
+      </div>
+      <div class="mb-3">
+        <label for="exp" class="form-label">Experience Requirements</label>
+        <select id="exp" name="exp" class="form-select" [(ngModel)]="selectedExp" required>
+          <option *ngFor="let exp of exp" [value]="exp">{{ exp }}</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="type" class="form-label">Job Type</label>
+        <select id="type" name="exp" class="form-select" [(ngModel)]="selectedType" required>
+          <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="deadline" class="form-label">Deadline</label>
+        <input type="date" id="deadline" name="deadline" class="form-control" [(ngModel)]="deadline" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="city" class="form-label">City</label>
+        <select id="city" name="city" class="form-select" [(ngModel)]="selectedCity" required>
+          <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="domain" class="form-label">Domain</label>
+        <select id="domain" name="domain" class="form-select" [(ngModel)]="selectedDomain" required>
+          <option *ngFor="let domain of domains" [value]="domain">{{ domain }}</option>
+        </select>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-secondary me-2" (click)="closeModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+  </div>
+  

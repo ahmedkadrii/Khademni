@@ -1,0 +1,102 @@
+.modal-content {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-header {
+    background-color: #007bff;
+    color: #D4D9F4;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .modal-title {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap; /* Ensure long titles wrap */
+    color: #2A2F52;
+    font-weight: bold;
+  }
+  
+  .modal-title i {
+    margin-right: 10px;
+  }
+.titles{
+  color: #2A2F52;
+}
+
+
+.s-t{
+  color: #787FB5;
+}
+  .modal-body {
+    padding: 20px;
+    background-color: #ffffff;
+    max-height: 70vh; /* Limit max height */
+    overflow-y: auto; /* Enable scrolling if content is too tall */
+  }
+  
+  .modal-body p {
+    margin-bottom: 15px;
+    font-size: 1rem;
+    color: #495057;
+    word-wrap: break-word; /* Prevent text overflow */
+    overflow-wrap: break-word; /* Prevent text overflow */
+  }
+  
+  .modal-body .job-description {
+    white-space: pre-wrap; /* Preserve whitespace and line breaks */
+  }
+  
+  .modal-body strong {
+    color: #212529;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+  }
+  
+  .modal-body strong i {
+    margin-right: 8px;
+    color: #6c757d;
+  }
+  
+  .modal-body .btn-primary {
+    background-color: #71DB97;
+    border-color: #71DB97;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modal-body .btn-primary i {
+    margin-right: 8px;
+  }
+  
+  .modal-body .btn-primary:hover {
+    background-color: #60BA80;
+    border-color: #60BA80;
+  }
+  
+  .modal-body .text-success {
+    color: #28a745;
+    display: flex;
+    align-items: center;
+  }
+  
+  .modal-body .text-success i {
+    margin-right: 8px;
+  }
+  
+  .modal-body .text-danger {
+    color: #dc3545;
+    display: flex;
+    align-items: center;
+  }
+  
+  .modal-body .text-danger i {
+    margin-right: 8px;
+  }
+  

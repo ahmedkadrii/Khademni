@@ -1,0 +1,137 @@
+<div class="home-intro">
+    <div class="background-overlay"></div>
+    <div class="intro-text">
+      <h1>Welcome to <span class="highlight">khademni</span></h1>
+      <p>“Bridging the gap between recruiters and job seekers with ease.”</p>
+      <a href="/jobs" class="btn btn-primary call-to-action">Find Jobs</a>
+  
+    </div>
+    <div class="hero-image">
+      <img src="../../assets/img/intro.png" alt="Hero Image">
+    </div>
+  </div>
+  
+  <div class="stats-section" >
+    <div class="stat">
+      <h2><span [appCountUp]="totalEnterprises" [duration]="2000" [speed]="5"></span></h2>
+      <p>Total companies</p>
+    </div>
+    <div class="stat">
+      <h2><span [appCountUp]="totalUsers" [duration]="2000" [speed]="5"></span></h2>
+      <p>Candidates</p>
+    </div>
+    <div class="stat" >
+      <h2><span [appCountUp]="totalJobs" [duration]="2000" [speed]="5"></span></h2>
+      <p>Opportunities</p>
+    </div>
+    <div class="stat">
+      <h2>24</h2>
+      <p>Available cities</p>
+    </div>
+  </div>
+  
+    <!-- New section with GIF -->
+    <div class="realtime-interaction-section">
+      <h1><span class="rt">Real-time</span> user interaction is here!</h1>
+      <div class="gif-container " @fadeIn>
+        <img src="../../assets/chat.gif" alt="Real-time Interaction GIF">
+      </div>
+    </div>
+  
+  
+  <div class="jobs-section" >
+    <h2>Explore Jobs by Category</h2>
+    <div class="cards-grid" >
+      <div class="card" @bounceIn>
+        <img src="../../assets/categ/design.png" alt="Icon">
+        <h3>Digital Marketing</h3>
+        <p>22 Jobs →</p>
+      </div>
+      <div class="card" @bounceIn>
+        <img src="../../assets/categ/web-design.png" alt="Icon">
+        <h3>Design & Development</h3>
+        <p>15 Jobs →</p>
+      </div>
+      <div class="card" @bounceIn>
+        <img src="../../assets/categ/engineer.png" alt="Icon">
+        <h3>Web Development</h3>
+        <p>30 Jobs →</p>
+      </div>
+      <div class="card" @bounceIn>
+        <img src="../../assets/categ/process.png" alt="Icon">
+        <h3>Business & Consulting</h3>
+        <p>18 Jobs →</p>
+      </div>
+      <div class="card" @bounceIn>
+        <img src="../../assets/categ/accounts.png" alt="Icon">
+        <h3>Finance Management</h3>
+        <p>18 Jobs →</p>
+      </div>
+      <div class="card" @bounceIn>
+        <img src="../../assets/categ/graphic-design.png" alt="Icon">
+        <h3>Graphic Design</h3>
+        <p>18 Jobs →</p>
+      </div>
+      <div class="card" @bounceIn>
+        <img src="../../assets/categ/app-development.png" alt="Icon">
+        <h3>Mobile Application</h3>
+        <p>18 Jobs →</p>
+      </div>
+      <div class="card" @bounceIn>
+        <img src="../../assets/categ/social-media.png" alt="Icon">
+        <h3>Sales Marketing</h3>
+        <p>18 Jobs →</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="latest-jobs-section" >
+    <h2 @slideIn>Latest Job Posts</h2>
+    <div class="cards-grid" >
+      <ng-container *ngFor="let job of latestJobs; let i = index">
+        <div *ngIf="i < 6" class="card" @fadeIn>
+          <div class="image-container">
+            <img [src]="getJobImage(i)" alt="Job Image">
+          </div>
+          <h3>{{ job.title }}</h3>
+          <div class="job-details" >
+            <span class="bi bi-eye" > {{ job.views }}</span>
+            <!-- <span>4.8</span> -->
+            <span class="bi bi-cash "> {{ job.salary.minSalary }} TND - {{ job.salary.maxSalary }} TND</span>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  
+  
+  <div class="new-section" >
+    <div class="section-content" >
+      <div class="section-text "  @slideIn>
+        <h2>Where Great Companies Hire Great People</h2>
+        <p>Training your memory, executive control, and visuospatial reasoning can help to boost your intelligence levels. The best way to train these areas of your brain is to engage in thoughtful activities and games, learn new skills.</p>
+        <ul>
+          <li>Post your job to 100+ job search sites.</li>
+          <li>Manage application with less effort and time.</li>
+          <li>Build modern job ads to attract more candidates.</li>
+        </ul>
+        <a class="find-jobs-button" href="/jobs">Find Jobs</a>
+      </div>
+      <div class="section-image" @fadeIn>
+        <img src="../../assets/girlimg.jpg" alt="Great Companies">
+      </div>
+    </div>
+  </div>
+  
+  <div class="newsletter-section position-relative d-flex align-items-center justify-content-center"@fadeIn >
+    <div class="container text-center">
+      <h2>Get The Latest <span class="highlight">News & Updates</span> From<br> Our Company</h2>
+      <div class="newsletter-form mt-4">
+        <input type="email" class="form-control custom-input" placeholder="Enter your email">
+        <button type="submit" class="btn btn-success">Subscribe</button>
+      </div>
+    </div>
+    <i class="bi bi-envelope-fill emoji-left position-absolute"></i>
+    <i class="bi bi-envelope-fill emoji-right position-absolute"></i>
+  </div>
+  

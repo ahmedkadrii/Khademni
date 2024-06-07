@@ -1,0 +1,108 @@
+.container {
+    padding: 15px;
+    height: 100vh;
+  }
+  
+  .table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+  }
+  
+  .table-hover tbody tr:hover {
+    color: #212529;
+    background-color: rgba(0, 0, 0, 0.075);
+  }
+  
+  .thead-dark th {
+    color: #fff;
+    background-color: #343a40;
+    border-color: #454d55;
+  }
+  
+  .btn-sm {
+    margin-right: 5px;
+  }
+  
+  .skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  
+  .mb-0{
+    color: rgb(255, 255, 255);
+  }
+  
+  .skill-badge {
+    background-color: #5a9;
+    color: white;
+    padding: 7px 15px; /* Increase padding for a more bubbly effect */
+    border-radius: 20px; /* Increase border-radius for more rounded corners */
+    min-width: 60px; /* Set a minimum width */
+    text-align: center; /* Center the text */
+    font-size: 0.9em; /* Adjust font size if needed */
+    margin: 2px; /* Add some margin to space out the badges */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow for depth */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .container {
+      padding: 10px;
+    }
+  
+    .table thead {
+      display: none; /* Hide table header on small screens */
+    }
+  
+    .table tbody, .table tr, .table td {
+      display: block;
+      width: 100%;
+    }
+  
+    .table tr {
+      margin-bottom: 15px;
+    }
+  
+    .table td {
+      text-align: left; /* Align text to the left */
+      padding-left: 15px; /* Adjust padding */
+      position: relative;
+      padding-top: 15px;
+    }
+  
+    .table td::before {
+      content: attr(data-label);
+      position: absolute;
+      left: 0;
+      width: 50%;
+      padding-left: 15px;
+      font-weight: bold;
+      text-align: left;
+    }
+  
+    .skills-container {
+      justify-content: flex-start; /* Align skills container to the left */
+    }
+  
+    .btn-sm {
+      width: 100%;
+      margin-bottom: 5px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .container {
+      padding: 5px;
+    }
+  
+    .table td {
+      padding-left: 15px;
+    }
+  
+    .table td::before {
+      padding-left: 10px;
+    }
+  }
+  

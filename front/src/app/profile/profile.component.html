@@ -1,0 +1,287 @@
+<body>
+    <div class="container-fluid profile-page" *ngIf="userProfile">
+      <div class="row">
+        <div class="col-12 profile-header position-relative">
+          <div class="d-flex align-items-center">
+            <img [src]="baseUrl + userProfile?.logo" alt="Profile Logo" class="profile-logo" (click)="openImage(userProfile?.logo)">
+            <div class="profile-info ms-5">
+              <h1 class="profile-name">{{ userProfile?.name }}</h1>
+            </div>
+          </div>
+          <button class="btn btn-light edit-profile-btn" *ngIf="!editMode && isProfileOwner()" (click)="toggleEditMode()">
+            <i class="fas fa-edit custom-icon"></i> <span class="edit-profile-text">Edit Profile</span>
+          </button>
+          <button class="btn btn-success ms-2 btn-follow" *ngIf="isLoggedIn && !isProfileOwner() && !isFollowing" (click)="followUser()" [disabled]="followButtonOnCooldown">
+            Follow
+          </button>
+          <button class="btn btn-danger ms-2 btn-unfollow" *ngIf="isLoggedIn && !isProfileOwner() && isFollowing" (click)="unfollowUser()" [disabled]="unfollowButtonOnCooldown">
+            Unfollow
+          </button>
+          <button class="btn btn-primary ms-2 btn-message" *ngIf="isLoggedIn && !isProfileOwner()" [routerLink]="['/messages', userProfile._id]">
+            Send Message
+          </button>
+                  <!-- Report Button -->
+                  <button class="btn btn-warning ms-2 btn-report" *ngIf="isLoggedIn && !isProfileOwner()" data-bs-toggle="modal" data-bs-target="#reportModal">
+                    Report
+                  </button>
+          
+        </div>
+      </div>
+    
+      <div class="row profile-content">
+        <div class="col-md-3 profile-sidebar">
+          <div class="profile-stats card p-3 mb-4">
+            <div class="stat mb-3 d-flex align-items-center custom-icon">
+              <i class="bi bi-file-earmark-text me-2"></i>
+              <h4 class="mb-0 me-2">Posts</h4>
+              <p class="mb-0">{{ posts.length }}</p>
+            </div>
+            <div class="stat mb-3 d-flex align-items-center custom-icon">
+              <i class="bi bi-people-fill me-2"></i>
+              <h4 class="mb-0 me-2">Followers</h4>
+              <p class="mb-0">{{ userProfile?.followers?.length }}</p>
+            </div>
+            <div class="stat mb-3 d-flex align-items-center">
+              <i class="bi bi-person-plus-fill me-2 custom-icon"></i>
+              <h4 class="mb-0 me-2">Following</h4>
+              <p class="mb-0">{{ userProfile?.following?.length }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 profile-details">
+          <div *ngIf="editMode">
+            <form (ngSubmit)="saveChanges()">
+              <div class="form-group mb-3">
+                <label for="name">{{ isEnterprise ? 'Company' : 'Full Name' }}:</label>
+                <input id="name" class="form-control" [(ngModel)]="editedProfile.name" name="name" required>
+              </div>
+              <!-- <div class="form-group mb-2">
+                <label for="email">Email:</label>
+                <input id="email" class="form-control" [(ngModel)]="editedProfile.email" name="email" required>
+              </div> -->
+              <div class="form-group mb-2">
+                <label for="contactEmail">Contact Email:</label>
+                <input id="contactEmail" class="form-control" [(ngModel)]="editedProfile.contactEmail" name="contactEmail" #contactEmail="ngModel" email>
+                <div *ngIf="contactEmail.invalid && (contactEmail.dirty || contactEmail.touched)" class="text-danger">
+                  <div *ngIf="contactEmail.errors?.['email']">Invalid contact email address.</div>
+                </div>
+              </div>
+                        <div class="form-group mb-3">
+                <label for="address">Address:</label>
+                <input id="address" class="form-control" [(ngModel)]="editedProfile.address" name="address" required>
+              </div>
+              <div class="form-group mb-3">
+                <label for="bio">Bio:</label>
+                <textarea id="bio" class="form-control" [(ngModel)]="editedProfile.bio" name="bio"></textarea>
+              </div>
+              <div class="form-group mb-3">
+              <label for="phone">Phone:</label>
+              <input id="phone" class="form-control" [(ngModel)]="editedProfile.phone" name="phone" required>
+            </div>
+  
+              <div *ngIf="!isEnterprise">
+                <div class="form-group mb-3">
+                  <label for="skills">Skills: </label>
+                  <input 
+                    id="skills" 
+                    class="form-control" 
+                    [(ngModel)]="skillsInput" 
+                    name="skills" 
+                    (keyup)="onSkillsInput($event)" 
+                    (blur)="parseSkills()"
+                    placeholder="Enter skills separated by commas"
+                  />
+                </div>
+                <div class="skills-container mb-3">
+                  <span *ngFor="let skill of editedProfile.skills; let i = index" class="skill-box">
+                    {{ skill }}
+                    <button type="button" class="btn-close" aria-label="Close" (click)="removeSkill(i)"></button>
+                  </span>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="cv">Upload CV:</label>
+                  <input id="cv" type="file" class="form-control-file" (change)="onCVFileChange($event)">
+                </div>
+              </div>
+              <div class="form-group mb-3">
+                <label for="logo">Upload Logo:</label>
+                <input id="logo" type="file" class="form-control-file" (change)="onLogoFileChange($event)">
+              </div>
+              <div class="form-group d-flex justify-content-end">
+                <button type="submit" class="btn btn-success me-2">
+                  <i class="fas fa-save custom-icon"></i> Save
+                </button>
+                <button type="button" class="btn btn-danger me-2" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
+                  <i class="fas fa-trash-alt custom-icon"></i> Delete Account
+                </button>
+                <button type="button" class="btn btn-secondary" (click)="cancelEdit()">
+                  <i class="fas fa-times custom-icon"></i> Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+          <div *ngIf="!editMode">
+            <p><i class="fas fa-user custom-icon"></i> <strong><span class="title-p"> {{ isEnterprise ? 'Company' : 'Full Name' }}:</span></strong> <span class="info-p"> {{ userProfile?.name }}</span></p>
+            <p><i class="fas fa-envelope custom-icon"></i> <strong><span class="title-p">Contact Email:</span></strong> <span class="info-p"> {{ userProfile?.contactEmail }}</span></p>
+            <p><i class="fas fa-phone custom-icon"></i> <strong><span class="title-p">Phone:</span></strong> <span class="info-p"> {{ userProfile?.phone }}</span></p>
+            <p><i class="fas fa-map-marker-alt custom-icon"></i> <strong><span class="title-p">Address:</span></strong> <span class="info-p"> {{ userProfile?.address }}</span></p>
+            <p><i class="fas fa-info-circle custom-icon"></i> <strong><span class="title-p">Bio:</span></strong> <span class="info-p"> {{ userProfile?.bio }}</span></p>
+            <div *ngIf="userProfile.skills">
+              <p><i class="fas fa-tools custom-icon"></i> <strong><span class="title-p">Skills:</span></strong> <span class="info-p"> {{ userProfile.skills.join(', ') }}</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <!-- Post creation form -->
+      <div class="row post-form-container" *ngIf="isProfileOwner()">
+        <div class="col-12">
+          <form class="post-form card p-3 mb-4" (ngSubmit)="createPost()">
+            <div class="form-group mb-3">
+              <textarea class="form-control custom-textarea" [(ngModel)]="newPostContent" name="newPostContent" placeholder="What's on your mind?" required></textarea>
+            </div>
+            <div class="form-group d-flex justify-content-end">
+              <button type="submit" class="btn btn-success">Post</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    
+      <!-- Display posts -->
+      <div class="post-container">
+        <div class="row">
+          <div class="col-12">
+            <div *ngFor="let post of posts" class="post card p-3 mb-4">
+              <div class="d-flex align-items-start">
+                <img [src]="baseUrl + userProfile?.logo" alt="Profile Picture" class="profile-picture rounded-circle me-3">
+                <div>
+                  <p class="mb-1"><strong>{{ userProfile?.name }}</strong></p>
+                  <small class="text-muted"><span class="time-post">{{ post.createdAt | date:'short' }}</span></small>
+                </div>
+                <div class="dropdown ms-auto" *ngIf="isProfileOwner()">
+                  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="postActionsDropdown{{post._id}}" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v"></i>
+                  </button>
+                  <ul class="dropdown-menu" [attr.aria-labelledby]="'postActionsDropdown' + post._id">
+                    <li *ngIf="!post.editing">
+                      <a class="dropdown-item" (click)="editPost(post)"><i class="fas fa-edit"></i> Edit</a>
+                    </li>
+                    <li *ngIf="!post.editing">
+                      <a class="dropdown-item" (click)="confirmDelete(post._id)"><i class="fas fa-trash-alt"></i> Delete</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div *ngIf="!post.editing" class="mt-2">
+                <p>{{ post.content }}</p>
+              </div>
+              <div *ngIf="post.editing" class="mt-2">
+                <textarea class="form-control" [(ngModel)]="post.content"></textarea>
+              </div>
+              <div *ngIf="post.editing" class="d-flex justify-content-end mt-2">
+                <button class="btn btn-success btn-sm me-2" (click)="updatePost(post)"><i class="fas fa-save"></i> Save</button>
+                <button class="btn btn-secondary btn-sm" (click)="cancelEditPost(post)"><i class="fas fa-times"></i> Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+                
+      <!-- Post Delete confirmation modal -->
+      <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Are you sure you want to delete this post?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+              <button type="button" class="btn btn-danger" (click)="deletePost()">Yes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Display notifications -->
+      <div *ngIf="notifications.length > 0" class="row mt-3">
+        <div class="col-12">
+          <h3>Notifications</h3>
+          <div *ngFor="let notification of notifications" class="alert alert-info">
+            {{ notification.content }}
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Delete Account Confirmation Modal -->
+    <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-danger text-white">
+            <h5 class="modal-title fw-bold" id="deleteAccountModalLabel">Confirm Delete Account</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to delete your account? Your account will be scheduled for deletion, This action cannot be undone. You have 24 hours to log back in before deletion!
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-danger" (click)="confirmAccountDeletion()">Delete Account</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  
+  
+  
+<!-- Report Profile Modal -->
+<div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-warning text-black">
+        <h5 class="modal-title" id="reportModalLabel">Report Profile</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="reportReason">Reason for Reporting:</label>
+          <textarea id="reportReason" class="form-control" [(ngModel)]="reportReason" rows="4" required></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-warning" (click)="reportEntity()">Submit Report</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Success Toast -->
+<div class="toast align-items-center text-bg-success border-0" id="successToast" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="d-flex">
+    <div class="toast-body">
+      <i class="bi bi-check-circle-fill"></i>
+      Your report has been sent, thank you for keeping our community safe!
+    </div>
+    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+  </div>
+</div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </body>
+  
+  
