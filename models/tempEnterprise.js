@@ -30,13 +30,12 @@ const tempEnterpriseSchema = new mongoose.Schema({
     type: String
   },
   logo: {
-    type: String 
+    type: String
   },
   businessDocument: {
     type: String,
     required: true // Path to the uploaded document
   },
-
   followers: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -61,6 +60,14 @@ const tempEnterpriseSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
+});
+
+// Middleware to lowercase username before saving
+tempEnterpriseSchema.pre('save', function(next) {
+  if (this.isModified('username')) {
+    this.username = this.username.toLowerCase();
+  }
+  next();
 });
 
 const TempEnterprise = mongoose.model('TempEnterprise', tempEnterpriseSchema);

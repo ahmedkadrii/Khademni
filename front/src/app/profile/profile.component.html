@@ -11,20 +11,20 @@
           <button class="btn btn-light edit-profile-btn" *ngIf="!editMode && isProfileOwner()" (click)="toggleEditMode()">
             <i class="fas fa-edit custom-icon"></i> <span class="edit-profile-text">Edit Profile</span>
           </button>
-          <button class="btn btn-success ms-2 btn-follow" *ngIf="isLoggedIn && !isProfileOwner() && !isFollowing" (click)="followUser()" [disabled]="followButtonOnCooldown">
+          <button class="btn btn-success ms-2 btn-follow" *ngIf="isLoggedIn && !isProfileOwner() && !isFollowing && !isAdmin" (click)="followUser()" [disabled]="followButtonOnCooldown">
             Follow
           </button>
-          <button class="btn btn-danger ms-2 btn-unfollow" *ngIf="isLoggedIn && !isProfileOwner() && isFollowing" (click)="unfollowUser()" [disabled]="unfollowButtonOnCooldown">
+          <button class="btn btn-danger ms-2 btn-unfollow" *ngIf="isLoggedIn && !isProfileOwner() && isFollowing && !isAdmin" (click)="unfollowUser()" [disabled]="unfollowButtonOnCooldown">
             Unfollow
           </button>
-          <button class="btn btn-primary ms-2 btn-message" *ngIf="isLoggedIn && !isProfileOwner()" [routerLink]="['/messages', userProfile._id]">
+          <button class="btn btn-primary ms-2 btn-message" *ngIf="isLoggedIn && !isProfileOwner()  && !isAdmin" [routerLink]="['/messages', userProfile._id]">
             Send Message
           </button>
                   <!-- Report Button -->
-                  <button class="btn btn-warning ms-2 btn-report" *ngIf="isLoggedIn && !isProfileOwner()" data-bs-toggle="modal" data-bs-target="#reportModal">
+                  <button type="button" class="btn btn-warning ms-2 btn-report" *ngIf="isLoggedIn && !isProfileOwner() && !isAdmin" (click)="openReportModal(reportModal)">
                     Report
                   </button>
-          
+                            
         </div>
       </div>
     
@@ -240,26 +240,24 @@
   
   
 <!-- Report Profile Modal -->
-<div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header bg-warning text-black">
-        <h5 class="modal-title" id="reportModalLabel">Report Profile</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label for="reportReason">Reason for Reporting:</label>
-          <textarea id="reportReason" class="form-control" [(ngModel)]="reportReason" rows="4" required></textarea>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-warning" (click)="reportEntity()">Submit Report</button>
-      </div>
+<ng-template #reportModal let-modal>
+  <div class="modal-header bg-warning text-black">
+    <h5 class="modal-title" id="reportModalLabel">Report Profile</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="reportReason">Reason for Reporting:</label>
+      <textarea id="reportReason" class="form-control" [(ngModel)]="reportReason" rows="4" required></textarea>
     </div>
   </div>
-</div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
+    <button type="button" class="btn btn-warning" (click)="reportEntity()">Submit Report</button>
+  </div>
+</ng-template>
+
+
 
 <!-- Success Toast -->
 <div class="toast align-items-center text-bg-success border-0" id="successToast" role="alert" aria-live="assertive" aria-atomic="true">

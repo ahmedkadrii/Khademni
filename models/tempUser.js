@@ -39,6 +39,14 @@ const tempUserSchema = new mongoose.Schema({
   }
 });
 
+// Middleware to lowercase username before saving
+tempUserSchema.pre('save', function(next) {
+  if (this.isModified('username')) {
+    this.username = this.username.toLowerCase();
+  }
+  next();
+});
+
 const TempUser = mongoose.model('TempUser', tempUserSchema);
 
 module.exports = TempUser;

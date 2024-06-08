@@ -27,6 +27,8 @@ export class ProfileComponent implements OnInit {
   isFollowing: boolean = false; // Track follow status
   loggedInUsername: string | null = null; // Track the logged-in username
   isEnterprise: boolean = false;
+  isAdmin: boolean = false;
+
   posts: any[] = []; // Array to store posts
   newPostContent: string = ''; // Content for new post
   postIdToDelete: string | null = null; // ID of the post to delete
@@ -173,6 +175,8 @@ export class ProfileComponent implements OnInit {
       (response: any) => {
         this.isLoggedIn = response.isLoggedIn;
         this.isEnterprise = response.role === 'enterprise';
+        this.isAdmin = response.role === 'admin';
+
         if (this.isLoggedIn) {
           this.loggedInUsername = response.username;
         } else {
@@ -408,11 +412,17 @@ export class ProfileComponent implements OnInit {
       alert('Please provide a reason for reporting.');
       return;
     }
-
+  
     this.reportService.createReport(this.userProfile._id, this.reportReason).subscribe(
       () => {
         this.reportReason = '';
         this.showSuccessToast();
+  
+        // Automatically close the modal after successful submission
+        if (this.currentModal) {
+          this.currentModal.close();
+          this.currentModal = null;
+        }
       },
       (error) => {
         console.error('Error reporting entity:', error);
@@ -420,7 +430,7 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
-
+    
   showSuccessToast(): void {
     const toastElement = document.getElementById('successToast');
     if (toastElement) {
