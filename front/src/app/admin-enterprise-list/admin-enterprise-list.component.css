@@ -1,7 +1,8 @@
 /* General Styles */
 .container {
-height: 100vh;
-  }
+    height: 100vh;
+      }
+      
   
   h2 {
     font-weight: bold;
@@ -69,5 +70,18 @@ height: 100vh;
     .modal-footer {
       padding: 1rem 1.5rem;
     }
+  }
+  
+  /* Toast Styles */
+  .toast-container {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 1050;
+  }
+  
+  .toast {
+    background-color: #198754;
+    color: #fff;
   }
   

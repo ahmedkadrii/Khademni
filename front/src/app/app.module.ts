@@ -45,6 +45,10 @@ import { EnterpriseRegisterComponent } from './enterprise-register/enterprise-re
 import { ConversationsComponent } from './conversations/conversations.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { AdminUserListComponent } from './admin-user-list/admin-user-list.component';
+import { AdminEnterpriseListComponent } from './admin-enterprise-list/admin-enterprise-list.component';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { ContactComponent } from './contact/contact.component';
+import { AdminJobListComponent } from './admin-job-list/admin-job-list.component';
 
 
 
@@ -78,6 +82,10 @@ import { AdminUserListComponent } from './admin-user-list/admin-user-list.compon
         ConversationsComponent,
         AboutUsComponent,
         AdminUserListComponent,
+        AdminEnterpriseListComponent,
+        UnauthorizedComponent,
+        ContactComponent,
+        AdminJobListComponent,
     ],
     bootstrap: [AppComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA], imports: [BrowserModule,

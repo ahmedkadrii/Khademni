@@ -7,28 +7,23 @@ const User = require('../models/user');
 
 // Enterprise signup
 exports.signupEnterprise = async (req, res) => {
-
   const { username, email, password, name, bio, address, logo, phone } = req.body;
   try {
-    // Check if email already exists
-    let enterprise = await TempEnterprise.findOne({ email });
+    // Check if email or username already exists in TempEnterprise, User, or Enterprise collections
+    let tempEnterprise = await TempEnterprise.findOne({ $or: [{ email }, { username }] });
+    if (tempEnterprise) {
+      return res.status(400).json({ message: 'Account with this username/email is already pending approval' });
+    }
+
+    let enterprise = await Enterprise.findOne({ $or: [{ email }, { username }] });
     if (enterprise) {
-      return res.status(400).json({ message: 'Email already exists' });
+      return res.status(400).json({ message: 'Account already exists' });
     }
 
-    let user = await User.findOne({ email });
+    let user = await User.findOne({ $or: [{ email }, { username }] });
     if (user) {
-      return res.status(400).json({ message: 'Email already exists' });
-    } 
-    
-    user = await User.findOne({ username });
-    if (user) {
-      return res.status(400).json({ message: 'Username already exists' });
+      return res.status(400).json({ message: 'Account already exists' });
     }
-
-
-
-
 
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -47,7 +42,7 @@ exports.signupEnterprise = async (req, res) => {
     });
 
     await newTempEnterprise.save();
-    res.status(201).json({ message: 'Signup successful, awaiting admin approval. \n\n an Admin will get back to you within the next 24 hours!' });
+    res.status(201).json({ message: 'Signup successful, awaiting admin approval. \n\n An Admin will get back to you within the next 24 hours!' });
   } catch (error) {
     console.error(error);  // Log the error to see what went wrong
     res.status(500).json({ message: 'Server error' });

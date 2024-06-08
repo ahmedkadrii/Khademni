@@ -20,6 +20,11 @@ import { ConversationsComponent } from './conversations/conversations.component'
 import { AboutUsComponent } from './about-us/about-us.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminUserListComponent } from './admin-user-list/admin-user-list.component';
+import { AdminEnterpriseListComponent } from './admin-enterprise-list/admin-enterprise-list.component';
+import { AdminGuard } from './admin.guard';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { ContactComponent } from './contact/contact.component';
+import { AdminJobListComponent } from './admin-job-list/admin-job-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -32,7 +37,10 @@ const routes: Routes = [
   { path: 'conversations', component: ConversationsComponent, canActivate: [AuthGuard] },
   { path: 'messages/:userId', component: ConversationsComponent, canActivate: [AuthGuard] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'admin/users', component: AdminUserListComponent },
+  { path: 'a/users', component: AdminUserListComponent, canActivate: [AdminGuard]},
+  { path: 'a/enterprises', component: AdminEnterpriseListComponent, canActivate: [AdminGuard]},
+  { path: 'a/jobs', component: AdminJobListComponent, canActivate: [AdminGuard]},
+  { path: 'unauthorized', component: UnauthorizedComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'tos', component: TosComponent },
   { path: 'bookmarks', component: BookmarksComponent, canActivate: [AuthGuard] },
@@ -40,7 +48,10 @@ const routes: Routes = [
   { path: 'applicants/:jobId', component: ApplicantsComponent, canActivate: [AuthGuard] },
   { path: 'reset-password/:resetToken', component: ResetPasswordComponent },
   { path: 'confirm/:token', component: EmailConfirmationComponent },
+  { path: 'contact', component: ContactComponent },
   { path: ':username', component: ProfileComponent },
+  
+
   { path: '**', component: PageNotFoundComponent }
 ];
 

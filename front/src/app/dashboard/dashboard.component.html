@@ -21,33 +21,65 @@
         </div>
       </div>
   
-  <!-- Enterprise Dashboard -->
-  <div *ngIf="userRole === 'enterprise'" class="enterprise-dashboard">
-    <h1 class="text-center mb-4">My Jobs</h1>
-  
-    <div class="row">
-      <div class="col-md-6 col-lg-4 mb-4" *ngFor="let job of jobs">
-        <div class="card h-100 border-0 shadow-sm animated-card">
-          <div class="card-header bg-transparent border-bottom-0">
-            <h5 class="card-title d-flex align-items-center">
-              <i class="bi bi-briefcase me-2"></i>{{ job.title }}
-              <span *ngIf="job.isPastDeadline" class="badge bg-danger ms-2">Closed</span>
-              <span *ngIf="!job.isPastDeadline" class="badge bg-success ms-2">Open</span>
-  
-            </h5>
-          </div>
-          <div class="card-body">
-            <p class="card-text"><i class="bi bi-geo-alt-fill me-2"></i>{{ job.cities }}</p>
-            <p class="card-text"><i class="bi bi-currency-dollar me-2"></i>{{ job.salary.minSalary }} TND - {{ job.salary.maxSalary }} TND</p>
-                  </div>
-          <div class="card-footer bg-transparent border-top-0 d-flex justify-content-between">
-            <button class="btn btn-primary mt-3" (click)="navigateToApplicants(job._id)"><i class="bi bi-people-fill me-2"></i>See Applicants</button>
-            <button class="btn btn-secondary mt-3" (click)="openEditJobModal(job)"><i class="bi bi-pencil-fill me-2"></i>Edit Job</button>
-          </div>
+<!-- Enterprise Dashboard -->
+<div *ngIf="userRole === 'enterprise'" class="enterprise-dashboard">
+  <h1 class="text-center mb-4">My Jobs</h1>
+  <div class="row">
+    <div class="col-md-6 col-lg-4 mb-4" *ngFor="let job of jobs">
+      <div class="card h-100 border-0 shadow-sm animated-card">
+        <div class="card-header bg-transparent border-bottom-0">
+          <h5 class="card-title d-flex align-items-center">
+            <i class="bi bi-briefcase me-2"></i>{{ job.title }}
+            <span *ngIf="job.isPastDeadline" class="badge bg-danger ms-2">Closed</span>
+            <span *ngIf="!job.isPastDeadline" class="badge bg-success ms-2">Open</span>
+          </h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text"><i class="bi bi-geo-alt-fill me-2"></i>{{ job.cities }}</p>
+          <p class="card-text"><i class="bi bi-currency-dollar me-2"></i>{{ job.salary.minSalary }} TND - {{ job.salary.maxSalary }} TND</p>
+        </div>
+        <div class="card-footer bg-transparent border-top-0 d-flex justify-content-end">
+          <button class="btn btn-primary btn-icon me-2" (click)="navigateToApplicants(job._id)">
+            <i class="bi bi-people-fill"></i>
+          </button>
+          <button class="btn btn-secondary btn-icon me-2" (click)="openEditJobModal(job)">
+            <i class="bi bi-pencil-fill"></i>
+          </button>
+          <button class="btn btn-danger btn-icon" (click)="deleteJob(job._id)">
+            <i class="bi bi-trash-fill"></i>
+          </button>
         </div>
       </div>
     </div>
   </div>
+</div>
+
+
+
+<!-- Success Toast for Delete Job -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+  <div id="deleteJobSuccessToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        Job deleted successfully.
+      </div>
+      <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+
+<!-- Error Toast for Delete Job -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+  <div id="deleteJobErrorToast" class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        An error occurred while deleting the job.
+      </div>
+      <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+
   
   <!-- Admin Dashboard -->
   <div *ngIf="userRole === 'admin'" class="admin-dashboard">
@@ -59,9 +91,15 @@
         <h5 class="card-title"><i class="bi bi-people-fill me-2" style="font-size: 2rem;"></i>Users: {{ totalUsers }}</h5>
       </div>
     </div>
+      <!-- Jobs Count Card -->
+      <div class="card h-100 border-0 shadow-sm animated-card mb-4" (click)="viewJobs()">
+        <div class="card-header bg-transparent border-bottom-0">
+          <h5 class="card-title"><i class="bi bi-people-fill me-2" style="font-size: 2rem;"></i>Jobs: {{ totalJobs }}</h5>
+        </div>
+      </div>
   
     <!-- Enterprise Count Card -->
-    <div class="card h-100 border-0 shadow-sm animated-card mb-4">
+    <div class="card h-100 border-0 shadow-sm animated-card mb-4" (click)="viewEnterprises()">
       <div class="card-header bg-transparent border-bottom-0">
         <h5 class="card-title"><i class="bi bi-people-fill me-2" style="font-size: 2rem;"></i>Enterprises: {{ totalEnterprises }}</h5>
       </div>
@@ -95,44 +133,113 @@
       </div>
     </div>
   
-    <!-- Reports Section -->
-    <div>
-      <h2 class="mb-4">Reports</h2>
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Reported By</th>
-              <th>Reported</th>
-              <th>Reason</th>
-              <th>Date</th>
-              <th>Status</th>
-              <th>Actions</th>
-  
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let report of reports">
-              <td><a [routerLink]="['/', report.reportedBy?.username]">{{ report.reportedBy?.username }}</a></td>
-              <td><a [routerLink]="['/', report.reported?.username]">{{ report.reported?.username }}</a></td>
-              <td>{{ report.reason }}</td>
-              <td>{{ report.date | date: 'short' }}</td>
-              <td>{{ report.status }}</td>
-              <td>
-                <button class="btn btn-success" (click)="markAsReviewed(report._id)" *ngIf="report.status === 'pending'">
-                  Mark as Reviewed
-                </button>
-              </td>
-  
-            </tr>
-          </tbody>
-        </table>
+  <!-- Reports Section -->
+  <div>
+    <h2 class="mb-4">Reports</h2>
+    <button class="btn btn-primary mb-3" (click)="toggleReports()">View Reports</button>
+    <div class="table-responsive" *ngIf="showReports">
+      <table class="table table-bordered table-hover table-striped align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>Reported By</th>
+            <th>Reported</th>
+            <th>Reason</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let report of reports">
+            <td><a [routerLink]="['/', report.reportedBy?.username]">{{ report.reportedBy?.username }}</a></td>
+            <td><a [routerLink]="['/', report.reported?.username]">{{ report.reported?.username }}</a></td>
+            <td>{{ report.reason }}</td>
+            <td>{{ report.date | date: 'short' }}</td>
+            <td>{{ report.status }}</td>
+            <td>
+              <button class="btn btn-success btn-sm" (click)="markAsReviewed(report._id)" *ngIf="report.status === 'pending'">
+                Mark as Reviewed
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- Contact Messages Section -->
+  <div>
+    <h2 class="mb-4">Contact Messages</h2>
+    <button class="btn btn-primary mb-3" (click)="toggleContactMessages()">See contact messages</button>
+    <div class="table-responsive" *ngIf="showContactMessages">
+      <table class="table table-bordered table-hover table-striped align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Subject</th>
+            <th>Message</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let message of contactMessages">
+            <td>{{ message.name }}</td>
+            <td>{{ message.email }}</td>
+            <td>{{ message.subject }}</td>
+            <td>{{ message.message }}</td>
+            <td>{{ message.date | date: 'short' }}</td>
+            <td>
+              <button class="btn btn-primary btn-sm" (click)="openReplyModal(message, replyModal)">Reply</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Reply Modal -->
+  <ng-template #replyModal let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title">Reply to {{ selectedMessage?.email }}</h5>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="sendReply(modal)">
+        <div class="mb-3">
+          <label for="subject" class="form-label">Subject</label>
+          <input type="text" class="form-control" id="subject" [(ngModel)]="replyData.subject" name="subject" readonly>
+        </div>
+        <div class="mb-3">
+          <label for="message" class="form-label">Message</label>
+          <textarea class="form-control" id="message" [(ngModel)]="replyData.message" name="message" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send Reply</button>
+      </form>
+    </div>
+  </ng-template>
+
+  <!-- Success Toast -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="replySuccessToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          Reply sent successfully.
+        </div>
+        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
     </div>
   </div>
-  
-  
-  
-  
-  
-  
+
+  <!-- Error Toast -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="contactErrorToast" class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          Please fill out all required fields.
+        </div>
+        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+</div>

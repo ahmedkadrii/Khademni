@@ -1,12 +1,13 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, TemplateRef } from '@angular/core';
 import { UserService } from '../user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { JobService } from '../job.service';
 import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { EditJobModalComponent } from '../edit-job-modal/edit-job-modal.component';
 import { AdminService } from '../admin.service';
 import { ReportService } from '../report.service';
+import { Toast } from 'bootstrap';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,8 +24,23 @@ export class DashboardComponent implements OnInit {
   totalUsers: number = 0;
   allUsers: any[] = []; // Ensure this is an array
   totalEnterprises: number = 0;
+  totalJobs: number = 0;
+  allJobs: any[] = [];
+
   allEnterprises: any[] = [];
   reports: any[] = [];
+  contactMessages: any[] = []; // Add this line
+  selectedMessage: any = null;
+  replyData = {
+    email: '',  // Add the email property
+    subject: '',
+    message: ''
+  };
+
+  showReports: boolean = false;
+  showContactMessages: boolean = false;
+
+  private modalRef: NgbModalRef | null = null;
 
 
   constructor(
@@ -63,7 +79,11 @@ export class DashboardComponent implements OnInit {
             this.PendingEnterprises();
             this.getUsers();
             this.getEnterprises();
+            this.getAllJobs();
+
             this.loadReports();
+            this.loadContactMessages(); // Add this line
+
 
 
           }
@@ -79,6 +99,13 @@ export class DashboardComponent implements OnInit {
     this.fetchAppliedJobs(); // Assuming this is for fetching jobs for 'user' role
   }
 
+  toggleReports(): void {
+    this.showReports = !this.showReports;
+  }
+
+  toggleContactMessages(): void {
+    this.showContactMessages = !this.showContactMessages;
+  }
 
   loadReports(): void {
     this.reportService.getReports().subscribe(
@@ -205,6 +232,49 @@ getUsers(): void {
   );
 }
 
+deleteJob(jobId: string): void {
+  if (confirm('Are you sure you want to delete this job?')) {
+    this.jobService.deleteJob(jobId).subscribe(
+      response => {
+        this.jobs = this.jobs.filter(job => job._id !== jobId);
+        this.showDeleteJobSuccessToast();
+      },
+      error => {
+        console.error('Error deleting job:', error);
+        this.showDeleteJobErrorToast();
+      }
+    );
+  }
+}
+
+showDeleteJobSuccessToast(): void {
+  const toastElement = document.getElementById('deleteJobSuccessToast');
+  if (toastElement) {
+    const toast = new Toast(toastElement);
+    toast.show();
+  }
+}
+
+showDeleteJobErrorToast(): void {
+  const toastElement = document.getElementById('deleteJobErrorToast');
+  if (toastElement) {
+    const toast = new Toast(toastElement);
+    toast.show();
+  }
+}
+
+
+
+
+getAllJobs(): void{
+  this.jobService.getAllJobs().subscribe((
+    jobs: any[]) => {
+      this.allJobs = jobs;
+      this.totalJobs = jobs.length;
+    },
+    error => console.error('Error fetching jobs:', error) 
+  );
+}
 
 getEnterprises(): void{
   this.userService.getEnterprises().subscribe(
@@ -229,11 +299,79 @@ getBusinessDocumentUrl(documentPath: string): string {
 
 
 viewUsers(): void {
-  this.router.navigate(['/admin/users']);
+  this.router.navigate(['/a/users']);
 }
 
-
-
+viewEnterprises(): void {
+  this.router.navigate(['/a/enterprises']);
 }
 
+viewJobs(): void {
+  this.router.navigate(['/a/jobs']);
+}
 
+  // Load contact messages
+  loadContactMessages(): void {
+    this.adminService.getAllContactMessages().subscribe(
+      (messages: any[]) => {
+        this.contactMessages = messages;
+      },
+      (error) => {
+        console.error('Error fetching contact messages', error);
+      }
+    );
+  }
+
+  openReplyModal(message: any, content: TemplateRef<any>): void {
+    this.selectedMessage = message;
+    this.replyData.email = message.email;
+    this.replyData.subject = message.subject; // Prefill subject
+    this.modalRef = this.modalService.open(content);
+  }
+
+  sendReply(modal: NgbModalRef): void {
+    if (this.selectedMessage) {
+      const replyPayload = {
+        email: this.selectedMessage.email,
+        subject: this.replyData.subject,
+        message: this.replyData.message
+      };
+
+      this.adminService.sendReplyEmail(replyPayload).subscribe(
+        response => {
+          console.log(response.message);
+          modal.close();
+          this.replyData = {
+            email: '',
+            subject: '',
+            message: ''
+          };
+          this.showSuccessToast(); // Show success toast
+        },
+        error => {
+          console.error('Error sending reply:', error);
+          this.showErrorToast();
+        }
+      );
+    } else {
+      this.showErrorToast();
+    }
+  }
+
+  showSuccessToast(): void {
+    const toastElement = document.getElementById('replySuccessToast');
+    if (toastElement) {
+      const toast = new Toast(toastElement);
+      toast.show();
+    }
+  }
+
+  showErrorToast(): void {
+    const toastElement = document.getElementById('contactErrorToast');
+    if (toastElement) {
+      const toast = new Toast(toastElement);
+      toast.show();
+    }
+  }
+
+}

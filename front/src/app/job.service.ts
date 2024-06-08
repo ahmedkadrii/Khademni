@@ -28,6 +28,7 @@ export class JobService {
 
 
 
+
   //  api call to get all jobs and display in the stats container
    getAllJobs(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/jobs/all`, { withCredentials: true });
@@ -56,6 +57,13 @@ export class JobService {
   editJob(jobId: string, jobData: any): Observable<any> {
     return this.http.put(`${this.baseUrl}/jobs/${jobId}`, jobData, { withCredentials: true });
   }
+
+
+  // Delete a job by ID
+  deleteJob(jobId: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/jobs/${jobId}`, { withCredentials: true });
+  }
+
 
 
 // get applied jobs for users

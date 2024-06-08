@@ -92,6 +92,13 @@ export class UserService {
     return this.http.post<any>(`${this.baseUrl}/auth/request-deletion`, {}, { withCredentials: true });
   }
 
+  deleteEnterprise(id: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/admin/ent/${id}`, { withCredentials: true });
+  }
+
+  deleteUserAccount(id: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/admin/user/${id}`, { withCredentials: true });
+  }
 
 }
 

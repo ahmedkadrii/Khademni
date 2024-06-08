@@ -425,12 +425,29 @@ export class ProfileComponent implements OnInit {
         }
       },
       (error) => {
-        console.error('Error reporting entity:', error);
-        alert('There was an error submitting your report. Please try again.');
+        if (error.status === 400 && error.error.message === 'You have already reported this account and it is still pending') {
+          this.showPendingReportToast();
+  
+          // Automatically close the modal in case of pending report
+          if (this.currentModal) {
+            this.currentModal.close();
+            this.currentModal = null;
+          }
+        } else {
+          console.error('Error reporting entity:', error);
+          alert('There was an error submitting your report. Please try again.');
+        }
       }
     );
+  }  
+  showPendingReportToast(): void {
+    const toastElement = document.getElementById('pendingReportToast');
+    if (toastElement) {
+      const toast = new bootstrap.Toast(toastElement);
+      toast.show();
+    }
   }
-    
+      
   showSuccessToast(): void {
     const toastElement = document.getElementById('successToast');
     if (toastElement) {

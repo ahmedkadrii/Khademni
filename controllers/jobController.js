@@ -82,7 +82,8 @@ exports.getJobs = async (req, res) => {
 // get total job count for home page
 exports.getAllJobs = async (req, res) => {
   try {
-    const jobs = await Job.find();
+    // Populate the 'createdBy' field with the 'companyName'
+    const jobs = await Job.find().populate('createdBy');
     res.status(200).json(jobs);
   } catch (error) {
     console.error('Error fetching jobs:', error);
