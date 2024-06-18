@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JobService } from '../job.service';
-import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '../dialog/dialog.component';
 import * as bootstrap from 'bootstrap';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
@@ -21,7 +19,13 @@ export class ApplicantsComponent implements OnInit {
   selectedApplicationId: string | null = null;
   modalType: string = ''; // 'accept' or 'reject'
 
-  constructor(private route: ActivatedRoute, private jobService: JobService, private dialog: MatDialog) { }
+  @ViewChild('acceptModal') acceptModal!: TemplateRef<any>;
+  @ViewChild('rejectModal') rejectModal!: TemplateRef<any>;
+
+  constructor(
+    private route: ActivatedRoute,
+    private jobService: JobService
+  ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -57,17 +61,6 @@ export class ApplicantsComponent implements OnInit {
     return `http://localhost:3000/${cvPath}`;
   }
 
-  openDialog(message: string): void {
-    const dialogRef = this.dialog.open(DialogComponent, {
-      width: '250px',
-      data: { message }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.fetchApplicants();
-    });
-  }
-
   openModal(type: string, applicationId: string): void {
     this.selectedApplicationId = applicationId;
     this.customMessage = '';
@@ -92,7 +85,9 @@ export class ApplicantsComponent implements OnInit {
       this.acceptApplication(this.selectedApplicationId, fullMessage);
       const acceptModalElement = document.getElementById('acceptModal') as HTMLElement;
       const acceptModal = bootstrap.Modal.getInstance(acceptModalElement) as bootstrap.Modal;
-      acceptModal.hide();
+      if (acceptModal) {
+        acceptModal.hide();
+      }
     }
   }
 
@@ -101,7 +96,9 @@ export class ApplicantsComponent implements OnInit {
       this.rejectApplication(this.selectedApplicationId, this.customMessage);
       const rejectModalElement = document.getElementById('rejectModal') as HTMLElement;
       const rejectModal = bootstrap.Modal.getInstance(rejectModalElement) as bootstrap.Modal;
-      rejectModal.hide();
+      if (rejectModal) {
+        rejectModal.hide();
+      }
     }
   }
 
@@ -112,11 +109,11 @@ export class ApplicantsComponent implements OnInit {
           console.log('Application accepted');
           this.updateApplicationStatus(applicationId, 'accepted');
           this.acceptedApplications.add(applicationId);
-          this.openDialog('Application accepted');
-          this.removeButtons(applicationId);
+          this.showToast('acceptApplicationSuccessToast');
         },
         error => {
           console.error('Error accepting application:', error);
+          this.showToast('acceptApplicationErrorToast');
         }
       );
     }
@@ -129,20 +126,13 @@ export class ApplicantsComponent implements OnInit {
           console.log('Application rejected');
           this.updateApplicationStatus(applicationId, 'rejected');
           this.rejectedApplications.add(applicationId);
-          this.openDialog('Application rejected');
-          this.removeButtons(applicationId);
+          this.showToast('rejectApplicationSuccessToast');
         },
         error => {
           console.error('Error rejecting application:', error);
+          this.showToast('rejectApplicationErrorToast');
         }
       );
-    }
-  }
-
-  removeButtons(applicationId: string): void {
-    const index = this.applicants.findIndex(app => app.jobApp === applicationId);
-    if (index !== -1) {
-      this.applicants.splice(index, 1);
     }
   }
 
@@ -150,6 +140,14 @@ export class ApplicantsComponent implements OnInit {
     const application = this.applicants.find(app => app.jobApp === applicationId);
     if (application) {
       application.status = status;
+    }
+  }
+
+  showToast(toastId: string): void {
+    const toastElement = document.getElementById(toastId);
+    if (toastElement) {
+      const toast = new bootstrap.Toast(toastElement);
+      toast.show();
     }
   }
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { UserService } from '../user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { JobService } from '../job.service';
@@ -41,7 +41,9 @@ export class DashboardComponent implements OnInit {
   showContactMessages: boolean = false;
 
   private modalRef: NgbModalRef | null = null;
+  private jobToDelete: string | null = null;
 
+  @ViewChild('deleteJobModal') deleteJobModal!: TemplateRef<any>;
 
   constructor(
     private userService: UserService,
@@ -51,7 +53,6 @@ export class DashboardComponent implements OnInit {
     private modalService: NgbModal,
     private cdr: ChangeDetectorRef,
     private reportService: ReportService
-
   ) { }
 
   ngOnInit(): void {
@@ -67,7 +68,6 @@ export class DashboardComponent implements OnInit {
                 this.jobs = jobs;
                 console.log('Jobs:', this.jobs);
                 this.cdr.markForCheck(); // Ensure the view is updated
-
               },
               error => {
                 console.error('Error fetching jobs:', error);
@@ -80,12 +80,8 @@ export class DashboardComponent implements OnInit {
             this.getUsers();
             this.getEnterprises();
             this.getAllJobs();
-
             this.loadReports();
             this.loadContactMessages(); // Add this line
-
-
-
           }
         } else {
           console.error('Invalid response format:', response);
@@ -112,7 +108,6 @@ export class DashboardComponent implements OnInit {
       (data) => {
         this.reports = data;
         console.log('Reports:', data); // Log the reports data to debug
-
       },
       (error) => {
         console.error('Error fetching reports', error);
@@ -134,7 +129,6 @@ export class DashboardComponent implements OnInit {
       }
     );
   }
-
 
   fetchAppliedJobs(): void {
     this.jobService.getApplications().subscribe(
@@ -186,129 +180,130 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/applicants', jobId]);
   }
 
+  openDeleteJobModal(jobId: string): void {
+    this.jobToDelete = jobId;
+    this.modalRef = this.modalService.open(this.deleteJobModal);
+  }
 
-// ADMIN DASHBOARD LOGIC
+  confirmDelete(): void {
+    if (this.jobToDelete) {
+      this.jobService.deleteJob(this.jobToDelete).subscribe(
+        response => {
+          this.jobs = this.jobs.filter(job => job._id !== this.jobToDelete);
+          this.showDeleteJobSuccessToast();
+          window.location.reload(); // Reload the window to refresh the page
 
-PendingEnterprises(): void {
-  this.adminService.PendingEnterprises().subscribe(
-    (enterprises: any[]) => this.pendingEnterprises = enterprises,
-    error => console.error('Error fetching pending enterprises:', error)
-  );
-}
+        },
+        error => {
+          console.error('Error deleting job:', error);
+          this.showDeleteJobErrorToast();
+        }
+      );
+      this.jobToDelete = null;
+      this.modalRef?.close();
+    }
+  }
 
+  showDeleteJobSuccessToast(): void {
+    const toastElement = document.getElementById('deleteJobSuccessToast');
+    if (toastElement) {
+      const toast = new Toast(toastElement);
+      toast.show();
+    }
+  }
 
+  showDeleteJobErrorToast(): void {
+    const toastElement = document.getElementById('deleteJobErrorToast');
+    if (toastElement) {
+      const toast = new Toast(toastElement);
 
-approveEnterprise(id: string): void {
-  this.adminService.approveEnterprise(id).subscribe(
-    () => {
-      this.PendingEnterprises();
-      this.router.navigate([this.router.url]).then(() => {
-        window.location.reload();
-      });
-  },
-    error => console.error(error)
-  );
-}
+      toast.show();
+    }
+  }
 
-rejectEnterprise(id: string): void {
-  this.adminService.rejectEnterprise(id).subscribe(
-    () => {
-      this.PendingEnterprises();
-      this.router.navigate([this.router.url]).then(() => {
-        window.location.reload();
-      });
-  },
-    error => console.error(error)
-  );
-}
+  // ADMIN DASHBOARD LOGIC
 
-getUsers(): void {
-  this.userService.getUsers().subscribe(
-    (users: any[]) => {
-      this.allUsers = users;
-      this.totalUsers = users.length;
-    },
-    error => console.error('Error fetching users:', error)
-  );
-}
-
-deleteJob(jobId: string): void {
-  if (confirm('Are you sure you want to delete this job?')) {
-    this.jobService.deleteJob(jobId).subscribe(
-      response => {
-        this.jobs = this.jobs.filter(job => job._id !== jobId);
-        this.showDeleteJobSuccessToast();
-      },
-      error => {
-        console.error('Error deleting job:', error);
-        this.showDeleteJobErrorToast();
-      }
+  PendingEnterprises(): void {
+    this.adminService.PendingEnterprises().subscribe(
+      (enterprises: any[]) => this.pendingEnterprises = enterprises,
+      error => console.error('Error fetching pending enterprises:', error)
     );
   }
-}
 
-showDeleteJobSuccessToast(): void {
-  const toastElement = document.getElementById('deleteJobSuccessToast');
-  if (toastElement) {
-    const toast = new Toast(toastElement);
-    toast.show();
+  approveEnterprise(id: string): void {
+    this.adminService.approveEnterprise(id).subscribe(
+      () => {
+        this.PendingEnterprises();
+        this.router.navigate([this.router.url]).then(() => {
+          window.location.reload();
+        });
+      },
+      error => console.error(error)
+    );
   }
-}
 
-showDeleteJobErrorToast(): void {
-  const toastElement = document.getElementById('deleteJobErrorToast');
-  if (toastElement) {
-    const toast = new Toast(toastElement);
-    toast.show();
+  rejectEnterprise(id: string): void {
+    this.adminService.rejectEnterprise(id).subscribe(
+      () => {
+        this.PendingEnterprises();
+        this.router.navigate([this.router.url]).then(() => {
+          window.location.reload();
+        });
+      },
+      error => console.error(error)
+    );
   }
-}
 
-
-
-
-getAllJobs(): void{
-  this.jobService.getAllJobs().subscribe((
-    jobs: any[]) => {
-      this.allJobs = jobs;
-      this.totalJobs = jobs.length;
-    },
-    error => console.error('Error fetching jobs:', error) 
-  );
-}
-
-getEnterprises(): void{
-  this.userService.getEnterprises().subscribe(
-    (enterprises: any[]) => {
-      this.totalEnterprises = enterprises.length;
-      this.allEnterprises = enterprises;
-    },
-    error => console.error('Error fetching enterprises:', error)
-  );
-}
-
-
-getBusinessDocumentUrl(documentPath: string): string {
-  if (!documentPath) {
-    return ''; // Handle undefined path
+  getUsers(): void {
+    this.userService.getUsers().subscribe(
+      (users: any[]) => {
+        this.allUsers = users;
+        this.totalUsers = users.length;
+      },
+      error => console.error('Error fetching users:', error)
+    );
   }
-  // Extract the relative path from the absolute path
-  const relativePath = documentPath.split('businessdocs')[1];
-  return `http://localhost:3000/businessdocs${relativePath}`;
-}
 
+  getAllJobs(): void {
+    this.jobService.getAllJobs().subscribe(
+      (jobs: any[]) => {
+        this.allJobs = jobs;
+        this.totalJobs = jobs.length;
+      },
+      error => console.error('Error fetching jobs:', error)
+    );
+  }
 
+  getEnterprises(): void {
+    this.userService.getEnterprises().subscribe(
+      (enterprises: any[]) => {
+        this.totalEnterprises = enterprises.length;
+        this.allEnterprises = enterprises;
+      },
+      error => console.error('Error fetching enterprises:', error)
+    );
+  }
 
-viewUsers(): void {
-  this.router.navigate(['/a/users']);
-}
+  getBusinessDocumentUrl(documentPath: string): string {
+    if (!documentPath) {
+      return ''; // Handle undefined path
+    }
+    // Extract the relative path from the absolute path
+    const relativePath = documentPath.split('businessdocs')[1];
+    return `http://localhost:3000/businessdocs${relativePath}`;
+  }
 
-viewEnterprises(): void {
-  this.router.navigate(['/a/enterprises']);
-}
+  viewUsers(): void {
+    this.router.navigate(['/a/users']);
+  }
 
-viewJobs(): void {
-  this.router.navigate(['/a/jobs']);
-}
+  viewEnterprises(): void {
+    this.router.navigate(['/a/enterprises']);
+  }
+
+  viewJobs(): void {
+    this.router.navigate(['/a/jobs']);
+  }
 
   // Load contact messages
   loadContactMessages(): void {
@@ -373,5 +368,4 @@ viewJobs(): void {
       toast.show();
     }
   }
-
 }

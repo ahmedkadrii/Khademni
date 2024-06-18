@@ -45,7 +45,7 @@
           <button class="btn btn-secondary btn-icon me-2" (click)="openEditJobModal(job)">
             <i class="bi bi-pencil-fill"></i>
           </button>
-          <button class="btn btn-danger btn-icon" (click)="deleteJob(job._id)">
+          <button class="btn btn-danger btn-icon" (click)="openDeleteJobModal(job._id)">
             <i class="bi bi-trash-fill"></i>
           </button>
         </div>
@@ -53,6 +53,23 @@
     </div>
   </div>
 </div>
+
+
+
+<!-- Delete Confirmation Modal -->
+<ng-template #deleteJobModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Confirm Delete</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    Are you sure you want to delete this job?
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss('Cancel click')">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="confirmDelete()">Delete</button>
+  </div>
+</ng-template>
 
 
 

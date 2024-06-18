@@ -21,12 +21,6 @@
             <td>{{ enterprise.email }}</td>
             <td>{{ enterprise.phone }}</td>
             <td>{{ enterprise.role }}</td>
-            <!-- <td>
-              <i class="bi bi-file-earmark-text-fill me-2"></i>
-              <a [href]="getBusinessDocumentUrl(enterprise.businessDocument)" download *ngIf="enterprise.businessDocument">
-                Download Business Document
-              </a>
-            </td> -->
             <td>
               <button class="btn btn-danger btn-sm" (click)="confirmDelete(enterprise._id, deleteModal)">Delete</button>
             </td>

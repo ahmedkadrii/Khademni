@@ -59,66 +59,6 @@ exports.applyForJob = async (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// exports.applyForJob = async (req, res) => {
-//     const { jobId } = req.params;
-//     const userId = req.session.userId; // Assuming the user ID is stored in the session
-    
-//     try {
-//         // Check if a file was uploaded
-//         if (!req.file) {
-//             return res.status(400).json({ message: 'No file uploaded' });
-//         }
-        
-//         // Destructure the cv property from req.file
-//         const { cv } = req.file;
-        
-//         // Check if the user has already applied for this job
-//         const existingApplication = await JobApplication.findOne({ jobId, userId });
-//         if (existingApplication) {
-//             return res.status(400).json({ message: 'You have already applied for this job' });
-//         }
-        
-//         // Check if the job exists
-//         const job = await Job.findById(jobId);
-//         if (!job) {
-//             return res.status(404).json({ message: 'Job not found' });
-//         }
-        
-//         // Create a job application
-//         const newJobApplication = new JobApplication({
-//             jobId,
-//             userId,
-//             cv: req.file.path, // Save the CV file path or relevant information
-//             applicationDate: new Date(), // Adding the current date
-//             status: 'pending' // Default status is 'pending'
-//         });
-//         await newJobApplication.save();
-        
-//         // Add the job application ID to the user's jobApplications array
-//         await User.findByIdAndUpdate(userId, { $push: { jobApplications: newJobApplication._id } });
-        
-//         res.status(201).json({ message: 'Job application submitted successfully', jobApplication: newJobApplication });
-//     } catch (err) {
-//         console.error('Error applying for job:', err);
-//         res.status(500).json({ message: 'Internal server error' });
-//     }
-// };
-
 exports.acceptOrRejectApplication = async (req, res) => {
     try {
         const { applicationId } = req.params;
@@ -241,7 +181,7 @@ exports.getAppliedJobs = async (req, res) => {
             salary: application.jobId.salary,
             enterprise: application.jobId.createdBy.username, // Access enterprise username
             datePosted: application.jobId.datePosted,
-            // Add more job details as needed
+            cities: application.jobId.cities,
             applicationDate: application.applicationDate,
             status: application.status
         }));

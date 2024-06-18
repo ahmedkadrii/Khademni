@@ -27,7 +27,6 @@ router.get('/latest', jobController.getLatestJobs); // New endpoint for latest j
 router.post('/bookmark', jobController.bookmark);
 
 // Fetch bookmarked jobs
-// Fetch bookmarked jobs
 router.get('/bookmarks', jobController.fetchBookmarks);
 // Remove a bookmark
 router.post('/removeBookmark', jobController.removeBookmark);
@@ -67,12 +66,6 @@ router.get('/:jobId/applicants', isAuth, isEnterprise, isAppOwner, jobApplicatio
 
 // Accept or reject a job application
 router.patch('/:applicationId', isAuth, isEnterprise, isAllowed, jobApplicationController.acceptOrRejectApplication);
-
-
-// Define route for fetching job applications for the logged-in enterprise
-
-
-
 
 
 

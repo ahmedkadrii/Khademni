@@ -55,10 +55,6 @@
                 <label for="name">{{ isEnterprise ? 'Company' : 'Full Name' }}:</label>
                 <input id="name" class="form-control" [(ngModel)]="editedProfile.name" name="name" required>
               </div>
-              <!-- <div class="form-group mb-2">
-                <label for="email">Email:</label>
-                <input id="email" class="form-control" [(ngModel)]="editedProfile.email" name="email" required>
-              </div> -->
               <div class="form-group mb-2">
                 <label for="contactEmail">Contact Email:</label>
                 <input id="contactEmail" class="form-control" [(ngModel)]="editedProfile.contactEmail" name="contactEmail" #contactEmail="ngModel" email>

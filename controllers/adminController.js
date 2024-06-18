@@ -3,7 +3,7 @@ const Job = require('../models/job');
 const JobApplication = require('../models/jobApplication');
 const User = require('../models/user');
 const Report = require('../models/report'); // Import the Report model
-
+const ContactMessage = require('../models/contactMessage');
 const Enterprise = require('../models/enterprise');
 const TempEnterprise = require('../models/tempEnterprise');
 const bcrypt = require('bcryptjs');
@@ -58,6 +58,7 @@ exports.signupAdmin = async (req, res) => {
 
 // @DESC: Approve Enterprise Sign up request
 // @METHOD: POST 
+// @ROUTE: /approve-enterprise
 exports.approveEnterprise = async (req, res) => {
     const { enterpriseId } = req.body;
     try {
@@ -117,8 +118,10 @@ exports.approveEnterprise = async (req, res) => {
     }
   };
       
-  // Reject enterprise
-  exports.rejectEnterprise = async (req, res) => {
+// @DESC: Reject Enterprise Sign up request
+// @METHOD: POST  
+// @ROUTE: /reject-enterprise
+exports.rejectEnterprise = async (req, res) => {
     const { enterpriseId } = req.body;
     try {
       const tempEnterprise = await TempEnterprise.findById(enterpriseId);
@@ -132,6 +135,10 @@ exports.approveEnterprise = async (req, res) => {
   };
   
 
+
+// @DESC: Get Enterprises Sign up request
+// @METHOD: GET  
+// @ROUTE: /pending-enterprises
   exports.getPendingEnterprises = async (req, res) => {
     try {
       const pendingEnterprises = await TempEnterprise.find();
@@ -143,6 +150,13 @@ exports.approveEnterprise = async (req, res) => {
   };
   
 
+
+
+
+
+// @DESC: Delete Enterprise Account
+// @METHOD: DELETE  
+// @ROUTE: /ent/:id
   exports.deleteEnterpriseAccount = async (req, res) => {
     const enterpriseId = req.params.id;
   
@@ -173,6 +187,10 @@ exports.approveEnterprise = async (req, res) => {
   };
     
 
+
+// @DESC: Delete User Account
+// @METHOD: DELETE  
+// @ROUTE: /user/:id
   exports.deleteUserAccount = async (req, res) => {
     const userId = req.params.id;
   
@@ -203,9 +221,11 @@ exports.approveEnterprise = async (req, res) => {
   };
   
 
-  const ContactMessage = require('../models/contactMessage');
 
-// Get all contact messages
+
+// @DESC: Get contact messages
+// @METHOD: GET  
+// @ROUTE: /contact/messages
 exports.getAllContactMessages = async (req, res) => {
   try {
     const messages = await ContactMessage.find().sort({ date: -1 }); // Sort by date, newest first
@@ -233,7 +253,9 @@ exports.createContactMessage = async (req, res) => {
 };
 
 
-// Send email reply to contact message
+// @DESC: Reply to a contact message
+// @METHOD: POST  
+// @ROUTE: /reply
 exports.sendReplyEmail = async (req, res) => {
   const { email, subject, message } = req.body;
 

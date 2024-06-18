@@ -60,12 +60,4 @@ export class AdminEnterpriseListComponent implements OnInit {
     }
   }
 
-  getBusinessDocumentUrl(documentPath: string): string {
-    if (!documentPath) {
-      return ''; // Handle undefined path
-    }
-    // Extract the relative path from the absolute path
-    const relativePath = documentPath.split('businessdocs')[1];
-    return `http://localhost:3000/businessdocs${relativePath}`;
-  }
 }

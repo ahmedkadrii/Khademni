@@ -38,7 +38,6 @@ exports.createJob = async (req, res) => {
   }
 };  
 
-// Server-side route to get all jobs
 // Server-side route to get all jobs with pagination
 exports.getJobs = async (req, res) => {
   const page = parseInt(req.query.page) || 1;

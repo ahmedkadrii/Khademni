@@ -14,8 +14,8 @@ const { isAuth } = require('../middleware/authMiddleware');
 router.get('/is-following/:username', userController.isFollowingUser);
 router.post('/follow/:username', userController.followUser);
 router.post('/unfollow/:username', userController.unfollowUser);
-router.post('/upload-cv', isAuth,upload, authController.uploadCV);
-router.post('/:username/upload-logo', isAuth, imgUpload.single('logo'), authController.uploadLogo);
+router.post('/upload-cv', isAuth,upload, profileController.uploadCV);
+router.post('/:username/upload-logo', isAuth, imgUpload.single('logo'), profileController.uploadLogo);
 
 
 router.get('/:username', profileController.getProfile);

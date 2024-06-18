@@ -74,6 +74,12 @@ html, body {
   animation: fadeInUp 0.5s ease-in-out both;
 }
 
+.modal-header .btn-close:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
