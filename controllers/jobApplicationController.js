@@ -172,19 +172,26 @@ exports.getAppliedJobs = async (req, res) => {
             }
         });
 
-        // Extract job details from job applications
-        const appliedJobs = jobApplications.map(application => ({
-            jobId: application.jobId._id,
-            title: application.jobId.title,
-            description: application.jobId.description,
-            location: application.jobId.location,
-            salary: application.jobId.salary,
-            enterprise: application.jobId.createdBy.username, // Access enterprise username
-            datePosted: application.jobId.datePosted,
-            cities: application.jobId.cities,
-            applicationDate: application.applicationDate,
-            status: application.status
-        }));
+        // Check if there are no job applications
+        if (jobApplications.length === 0) {
+            return res.status(200).json({ appliedJobs: [], message: 'No job applications found.' });
+        }
+
+        // Extract job details from job applications, checking for valid jobId
+        const appliedJobs = jobApplications
+            .filter(application => application.jobId && application.jobId.createdBy)
+            .map(application => ({
+                jobId: application.jobId._id,
+                title: application.jobId.title,
+                description: application.jobId.description,
+                location: application.jobId.location,
+                salary: application.jobId.salary,
+                enterprise: application.jobId.createdBy.username, // Access enterprise username
+                datePosted: application.jobId.datePosted,
+                cities: application.jobId.cities,
+                applicationDate: application.applicationDate,
+                status: application.status
+            }));
 
         // Respond with the list of applied jobs
         res.status(200).json({ appliedJobs });
